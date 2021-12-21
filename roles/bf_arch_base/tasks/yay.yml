@@ -1,0 +1,25 @@
+---
+- name: Give ansible user permissions to write in /opt/yay/
+  file:
+    path: /opt/yay
+    state: directory
+    mode: '0775'
+    owner: root
+    group: "{{bbvps_users.ansible_user.group}}"
+  become: true
+
+- name: Clone down yay repo
+  git: repo=https://aur.archlinux.org/yay.git dest=/opt/yay/ accept_hostkey=yes update=yes
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+    - yay
+
+- name: Install yay with makepkg
+  shell:
+    chdir: /opt/yay/
+    cmd: makepkg -si --noconfirm
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+    - yay

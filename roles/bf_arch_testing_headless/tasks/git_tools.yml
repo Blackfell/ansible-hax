@@ -1,0 +1,59 @@
+---
+  #All git tools permissioned owned by ansible, but group as bugbounty
+- name: Give ansible user permissions to write in /opt/tool(s)
+  file:
+    path: /opt/{{ item.name }}
+    state: directory
+    mode: '0775'
+    owner: "{{ bbvps_users.ansible_user.name }}"
+    group: "{{ bb_group }}"
+  with_items: "{{ bb_git }}"
+  become: true
+
+- name: Clone or update associated repos
+  git: repo={{ item.repo }} dest=/opt/{{item.name}} accept_hostkey=yes update=yes
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  with_items: "{{ bb_git }}"
+  tags:
+    - yay
+
+- name: Simple installs of git tools in opt
+#Installation as main user, many bounty tools are user space ~ installs
+  shell:
+    chdir: /opt/{{item.name}}
+    cmd: "{{ item.install_command }}"
+  become: yes
+  become_user: "{{bbvps_users.main_user.name}}"
+  with_items: "{{ bb_git }}"
+  when: item.install_command is defined
+
+- name: Complex installs of git tools in opt #Installation as defined by task
+  include_tasks:
+    file: "{{outer_item.install_task}}"
+  loop: "{{ bb_git }}"  #We're using loop now to avoid loop var name conlicts, do teh tricky bit here, not in imported tasks
+  loop_control:
+    loop_var: outer_item
+  when: outer_item.install_task is defined
+
+
+- name: Ensure custom path file exists
+  file:
+    path: /etc/profile.d/custom-ansible-path.sh
+    state: touch
+    owner: root
+    group: root
+    mode: '0755'
+
+
+- name: Add git dir(s) to PATH
+  lineinfile:
+    dest: /etc/profile.d/custom-ansible-path.sh
+    state: present
+    line: 'PATH=$PATH:/opt/{{item.name}}'
+  become: yes
+  become_user: root
+  when: item.add_git_dir_to_path | default(false)
+  with_items: "{{ bb_git }}"
+  tags:
+    - yay

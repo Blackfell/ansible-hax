@@ -1,0 +1,30 @@
+---
+- name: Install recon tooling
+  package: name={{ bb_recon }} state=present
+  tags:
+          - bugbounty
+
+- name: Install enumeration tooling
+  package: name={{ bb_enum }} state=present
+  tags:
+          - bugbounty
+
+- name: Install vuln enumeration & scanning tooling
+  package: name={{ bb_vuln }} state=present
+  tags:
+          - bugbounty
+
+- name: Install exploit & C2 tooling
+  package: name={{ bb_exploit }} state=present
+  tags:
+          - bugbounty
+
+- name: Install post-exploit tooling
+  package: name={{ bb_post }} state=present
+  tags:
+          - bugbounty
+
+- name: Install other misc tooling
+  package: name={{ bb_general }} state=present
+  tags:
+          - bugbounty

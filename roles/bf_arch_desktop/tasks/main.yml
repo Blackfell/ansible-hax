@@ -1,0 +1,57 @@
+---
+- name: Install core gui utils & drivers
+  pacman: name={{ bb_gui_core }} state=present
+  tags:
+          - gui
+
+
+- name: Install gui tools
+  pacman: name={{ bb_gui_tools }} state=present
+  tags:
+          - gui
+          - tools
+
+# TODO - separate per-DE?
+- name: Set gtk themes
+  copy:
+          src: gtkrc
+          dest: /usr/share/gtk-2.0/
+  copy:
+          src: settings.ini
+          dest: /usr/share/gtk-3.0/
+  tags:
+          - gui
+
+- name: Create backgrounds directory if not existing
+  file:
+    path: "/usr/share/backgrounds"
+    state: directory
+    mode: '0775'
+    owner: root
+    group: root
+  become: true
+
+- name: Put desktop background in right spot
+  copy:
+    src: BFBackground.png
+    dest: /usr/share/backgrounds/BFBackground.png
+  tags:
+    - gui
+
+- name: Configure Boot - DM and Grub
+  include: boot_config.yml
+
+- name: Configure Fonts for Powerline
+  include: powerline_fonts.yml
+
+- name: Enable ACPI & Bluetooth Services
+  service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - acpid
+    - bluetooth
+
+- include: i3.yml
+- include: desktop_testing.yml

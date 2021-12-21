@@ -1,0 +1,44 @@
+conky.config = {
+	alignment = 'bottom_right',
+	background = true,
+	default_color = '4078f2',
+	color2 = '666666',
+	color3 = '9966cc',
+	cpu_avg_samples = 2,
+	double_buffer = true,
+	font = 'Meslo LG S DZ For Powerline:size=10:bold',
+	draw_shades = false,
+	gap_x = 25,
+	gap_y = 25,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 2.0,
+	use_xft = true,
+}
+conky.text = [[
+${color2}Terminal  $alignr${color}mod+Enter
+${color2}Firefox  $alignr${color}mod+F3
+${color2}Burp  $alignr${color}mod+F4
+${color2}Zap	$alignr${color}mod+F5
+${color2}PCManFM  $alignr${color}mod+F8
+${color2}Pavucontrol  $alignr${color}mod+Ctrl+m
+
+${color2}Toggle Compton  $alignr${color}mod+t
+${color2}Toggle Conky  $alignr${color}mod+c
+${color2}Large Move/Resize Mod  $alignr${color}Ctrl
+${color2}Gaps Mode $alignr${color}mod+Shift+g
+${color2}dmenu  $alignr${color}mod+d
+${color2}Toggle Mic Mute $alignr${color}mod+Pause
+
+${color2}Resize VM Screen $alignr${color}mod+Shift+v
+${color2}Main Screen Only  $alignr${color}mod+Shift+i
+${color2}External Monitor Mode  $alignr${color}mod+Ctrl+i
+${color2}Laptop Screen On      $alignr${color}mod+Shift+Ctrl+r
+${color2}Toggle Mic Mute $alignr${color}mod+Pause
+
+${color2}help  $alignr${color}mod+Ctrl+h
+$alignr mod=<Super>
+]]

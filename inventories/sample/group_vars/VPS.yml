@@ -1,0 +1,32 @@
+# Add your all.yml config overrides to this file. See group_vars/all.yml for all possible settings.
+
+# Example options
+bbvps_users:
+  main_user:
+    name: blackfell
+    fullname: blackfell
+    uid: 1001
+    group: blackfell
+    shell: /bin/zsh
+    create_home: true
+    email: linode@blackfell.net
+    update_password: on_create
+    groups: wheel,users,audio,storage
+    append: yes
+    # Create with
+    # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
+    password:
+    ssh_key_name: user_key.pub
+  ansible_user:
+    name: ansible
+    fullname: Ansible
+    uid: 1002
+    group: ansible
+    shell: /bin/bash
+    create_home: true
+    email: linode@blackfell.net
+    update_password: on_create
+    groups: wheel,users,audio,storage
+    append: yes
+    password: 
+    ssh_key_name: ansible_key.pub

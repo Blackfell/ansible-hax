@@ -1,0 +1,5 @@
+---
+- name: Reboot in case of kernel update
+  reboot:
+  tags:
+    - reboot

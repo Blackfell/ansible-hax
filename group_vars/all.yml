@@ -1,0 +1,314 @@
+---
+#TODO - remove duplicates - probably...
+#
+########### USERS STUFF ##########
+bbvps_users:
+  main_user:
+    name: blackfell
+    group: blackfell
+    shell: /bin/zsh
+    create_home: true
+    update_password: on_create
+    groups: wheel,users,audio,storage,{{bb_group}}
+    append: yes
+    # Create with
+    # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
+    password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
+    ssh_key_name: /tmp/SPECIFY_YOUR_SSH_KEY_HERE
+  ansible_user:
+    name: myansible
+    group: ansible
+    shell: /bin/bash
+    create_home: true
+    update_password: on_create
+    groups: wheel,users,audio,storage
+    append: yes
+    password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
+    ssh_key_name: /tmp/SPECIFY_YOUR_SSH_KEY_HERE
+
+timezone: Europe/London
+locale: en_GB.UTF-8
+keymap: uk
+
+bb_group: bugbounty
+
+hostname: bbvps
+
+############## Host Security & Remoting  #################
+
+ssh_max_sessions: 7
+ssh_max_auth_tries: 3
+ssh_permit_root_login: "no"
+ssh_permit_password_auth: "no"
+ssh_allow_agent_forwarding: "no"
+ssh_tcp_keep_alive: "yes"
+ssh_use_dns: "no"
+ssh_port: 22
+mosh_port_range: 60000:60010
+
+############### Arch Base Core Tooling ###################
+
+base_tools:
+    - gcc
+    - base
+    - base-devel
+    - binutils
+    - make
+    - automake
+    - binutils
+core_tools:
+    - git
+    - bash
+    - zsh
+    - bash-completion
+    - less
+    - bc
+    - colordiff
+    - rsync
+    - sudo
+    - polkit
+    - ranger
+    - vim
+    - pkgfile
+    - mlocate
+    - lsof
+    - htop
+    - bashtop
+    - ntp
+    - cryptsetup
+    - logrotate
+    - lvm2
+    - man-db
+    - man-pages
+    - vim
+    - sysfsutils
+    - sudo
+    - networkmanager
+    - openssh
+    - python
+    - python-pip
+    - fontconfig
+    - byobu
+    - neofetch
+    - rsync
+    - sshfs
+    - lolcat
+    - cmatrix
+    - cowsay
+    - diff-so-fancy
+    - vim-airline
+    - vim-airline-themes
+core_networking:
+    - net-tools
+    - bind-tools
+    - curl
+    - wget
+    - whois
+    - inetutils
+    - dhcp
+    - netctl
+    - openbsd-netcat
+    - iputils
+core_aur:
+    - bash-pipes
+    - oh-my-zsh-git
+    - zsh-theme-powerlevel10k-git
+    - ttf-meslo-nerd-font-powerlevel10k
+    - vundle
+    - gdb-multiarch
+
+############### DESKTOP BASE TOOLS ##################
+
+bb_gui_core:
+  - xorg-server
+  - xorg-xinit
+  - xorg-xmodmap
+  - xorg-xev
+  - xorg-xbacklight
+  - xorg-xrandr
+  - xcape
+  - xf86-video-intel
+  - linux-lts
+  - nvidia-lts
+  - linux-lts-headers
+  - opencl-nvidia
+  - nvidia-prime
+  - libvdpau
+  - cuda
+  - linux-firmware
+  - texinfo
+  - usbutils
+  - alsa
+  - pulseaudio
+  - pavucontrol
+  - lightdm
+  - lightdm-slick-greeter
+  - nitrogen
+  - acpid
+  - blueman
+  - bluez-tools
+
+bb_gui_tools:
+  - atom
+  - firefox
+  - lynx
+  - flameshot
+  - syncthing
+
+############ i3 VM Tools #######################
+
+bb_i3:
+  - rxvt-unicode
+  - rxvt-unicode-terminfo
+  - xterm
+  - pcmanfm
+  - gtk3
+  - conky
+  - compton
+  - i3-gaps
+  - i3lock
+  - xfce4-power-manager
+  - rofi
+  - papirus-icon-theme
+  - noto-fonts
+  - network-manager-applet
+
+bb_i3_aur:
+  - termite
+  - pa-applet-git
+  - siji-ng
+  - polybar
+  - i3exit
+  - pywal-git
+  - clipit
+  - matcha-gtk-theme
+  - ttf-unifont
+
+############ Headless Testing Tools  ################
+
+bb_recon:
+  - dnsrecon
+  - recon-ng
+  - subfinder
+  - dnsx
+  - nmap
+  - masscan
+  - hping
+  - fierce
+  - waybackurls
+  - assetfinder
+  - amass
+
+bb_enum:
+  - wfuzz
+  - ffuf
+  - dirb
+  - gobuster
+  - enum4linux
+  - seclists
+  - meg
+  - rustscan
+
+bb_vuln:
+  - exploitdb
+  - snmpcheck
+  - hydra
+  - nikto
+  - wpscan
+  - onesixtyone
+  - snmpcheck
+  - net-snmp
+  - blackarch/pwntools
+
+# TODO - Include SNMPBLOW?
+# apt-get install tftpd-hpa
+# mkdir /tftpboot && chmod 777 /tftpboot
+# apt-get install libnet-snmp-perl libnet-rawip-perl
+# wget http://www.willhackforsushi.com/sec660/snmpblow.pl
+
+
+bb_exploit:
+  - sqlmap
+  - afl
+  - afl-utils
+  - sulley
+  - metasploit
+  - empire
+  - gdb
+  - blackarch/gef
+
+bb_post:
+  - linenum
+  - powersploit
+  - evil-winrm
+
+bb_general:
+  - proxychains
+  - curl
+  - wget
+  - scapy
+  - docker
+  - rust
+  - go
+  - go-tools
+  - unfurl
+
+# Tools from Git  - Name and repo required.
+bb_git:
+  - name: "python_widgets"
+    repo: "https://www.github.com/blackfell/python_widgets"
+    add_git_dir_to_path: true
+    install_command: "python -m pip install -r ./requirements.txt"
+# Installing blackarch/gef instead now
+#  - name: "peda_gef_pwndbg"
+#    repo: "https://github.com/apogiatzis/gdb-peda-pwndbg-gef"
+#    install_task: roles/testing_headless/tasks/peda_gef_pwndbg.yml #./install.sh  #Install too interactive, sorry
+  - name: "snmpblow"
+    repo: "https://github.com/grigorescu/snmpblow"
+    add_git_dir_to_path: true
+    install_command: "echo nothing"
+  - name: "tomnomnom hacks"
+    repo: "https://github.com/tomnomnom/hacks"
+
+#TODO these?
+#  - seatbelt
+#  - kxss
+#- LazyfuzZ
+
+bb_rust:
+  - feroxbuster
+
+bb_go_get:
+  - github.com/tomnomnom/gron
+  - github.com/tomnomnom/httprobe
+  - github.com/tomnomnom/gf
+
+current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
+
+########## GUI Testing TOOLS  ##########
+
+bb_gui_pentest:
+  - burpsuite
+  - zaproxy
+  - firefox
+  - wireshark-cli
+  - wireshark-qt
+  - termshark
+  - netdiscover
+  - aircrack-ng
+  - kismet
+  - macchanger
+  - ghidra
+  - r2ghidra
+  - ollydbg
+  - keepassxc
+  - veracrypt
+  - pulseview
+  - winexe
+
+    #TODO
+    # Pro tooling
+    # # Git tools
+    # gem install one_gadget
+
+bb_gui_pentest_aur:

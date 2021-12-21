@@ -1,0 +1,27 @@
+---
+- name: Enable multilib repo mirrorlist line - first run only
+  lineinfile:
+    dest: /etc/pacman.conf
+    state: present
+    insertafter: '^#\[multilib\]'
+    line: "Include=/etc/pacman.d/mirrorlist"
+  become: yes
+  tags:
+    - multilib
+
+- name: Enable multilib repo mainline
+  lineinfile:
+    dest: /etc/pacman.conf
+    state: present
+    regexp: '^#{0,1}\[multilib\]'
+    line: "[multilib]"
+  become: yes
+  tags:
+    - multilib
+
+- name: Upgrade to complete multilib install
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  tags:
+    - update

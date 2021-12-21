@@ -1,0 +1,122 @@
+---
+
+- name: Install the `iptables` package
+  package:
+    name: iptables
+    state: latest
+
+- name: Flush existing firewall rules
+  iptables:
+    flush: true
+    #version:
+    #  - ipv4
+    #  - ipv6
+    #If fails, do this:
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4
+    - ipv6
+
+- name: Firewall rule - allow all loopback traffic
+  iptables:
+    action: append
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4
+    - ipv6
+
+
+- name: Firewall rule - allow established connections
+  iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4
+    - ipv6
+
+- name: Firewall rule - allow ping traffic
+  iptables:
+    chain: INPUT
+    jump: ACCEPT
+    protocol: icmp
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4
+    - ipv6
+
+- name: Firewall rule - allow SSH traffic
+  iptables:
+    chain: INPUT
+    destination_port: "{{ ssh_port }}"
+    jump: ACCEPT
+    protocol: tcp
+
+- name: Firewall rule - allow MOSH traffic
+  iptables:
+    chain: INPUT
+    destination_port: "{{ mosh_port_range }}"
+    jump: ACCEPT
+    protocol: udp
+
+- name: Firewall rule - allow port 80/HTTP traffic
+  iptables:
+    chain: "{{ item }}"
+    destination_port: 80
+    jump: ACCEPT
+    protocol: tcp
+  with_items:
+    - INPUT
+    - DOCKER
+
+- name: Firewall rule - allow port 443/HTTPS traffic
+  iptables:
+    chain: "{{ item }}"
+    destination_port: 443
+    jump: ACCEPT
+    protocol: tcp
+  with_items:
+    - INPUT
+    - DOCKER
+
+- name: Firewall rule - drop any traffic without rule
+  iptables:
+    action: append
+    chain: INPUT
+    jump: DROP
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4
+    - ipv6
+
+- name: Install `netfilter-persistent` && `iptables-persistent` packages
+  package:
+    name: "{{item}}"
+    state: present
+  with_items:
+   - iptables-persistent
+   - netfilter-persistent
+  when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+
+- name: Allow DOCKER outbound connections
+  iptables:
+    chain: DOCKER
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4
+
+- name: Firewall rule - drop any DOCKER traffic without rule
+  iptables:
+    action: append
+    chain: DOCKER
+    jump: DROP
+    ip_version: "{{ item }}"
+  with_items:
+    - ipv4

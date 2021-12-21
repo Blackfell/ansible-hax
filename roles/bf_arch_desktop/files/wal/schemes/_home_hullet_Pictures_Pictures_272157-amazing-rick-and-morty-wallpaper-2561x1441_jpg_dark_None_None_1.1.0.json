@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/hullet/Pictures/Pictures/272157-amazing-rick-and-morty-wallpaper-2561x1441.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#111830",
+        "foreground": "#8fbddb",
+        "cursor": "#8fbddb"
+    },
+    "colors": {
+        "color0": "#111830",
+        "color1": "#2056A3",
+        "color2": "#256DB4",
+        "color3": "#667396",
+        "color4": "#287EC1",
+        "color5": "#827B99",
+        "color6": "#538DBC",
+        "color7": "#8fbddb",
+        "color8": "#648499",
+        "color9": "#2056A3",
+        "color10": "#256DB4",
+        "color11": "#667396",
+        "color12": "#287EC1",
+        "color13": "#827B99",
+        "color14": "#538DBC",
+        "color15": "#8fbddb"
+    }
+}

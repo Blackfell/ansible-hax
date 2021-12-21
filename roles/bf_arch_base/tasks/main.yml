@@ -1,0 +1,12 @@
+---
+- include: locale.yml
+- include: base_tools.yml
+- include: user.yml
+- include: yay.yml
+- include: aur_tools.yml
+- include: customisation.yml
+- include: docker.yml
+- include: multilib.yml
+- include: fail2ban.yml
+- include: iptables.yml
+- include: mosh_and_ssh.yml

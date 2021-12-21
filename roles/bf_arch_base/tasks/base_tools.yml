@@ -1,0 +1,17 @@
+---
+- name: Install base packages
+  package: name={{ base_tools }} state=present
+  tags:
+          - tools
+          - base_tools
+
+- name: Install core toolset
+  package: name={{ core_tools }} state=present
+  tags:
+          - tools
+          - base_tools
+
+- name: Install networking tools
+  package: name={{ core_networking }} state=present
+  tags:
+          - networking

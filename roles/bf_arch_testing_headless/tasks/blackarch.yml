@@ -1,0 +1,37 @@
+---
+- name: Give ansible user permissions to write in /opt/blackarch
+  file:
+    path: /opt/blackarch
+    state: directory
+    mode: '0775'
+    owner: root
+    group: "{{bbvps_users.ansible_user.group}}"
+  become: true
+  tags:
+    - blackarch
+
+#- name: Get installer
+#  get_url:
+#    url: https://blackarch.org/strap.sh
+#    dest: /opt/blackarch/strap.sh
+#    checksum: "sha1:{{current_blackarch_sha1sum}}"
+#    mode: '0744'
+#  become: yes
+#  become_user: "{{bbvps_users.ansible_user.name}}"
+#  tags:
+#    - bugbounty
+#    - blackarch
+
+- name: Get Installer (Git)
+  git: repo="https://github.com/BlackArch/blackarch-site" dest=/opt/blackarch accept_hostkey=yes update=yes
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  with_items: "{{ bb_git }}"
+  tags:
+    - bugbounty
+    - blackarch
+
+- name: Install blackarch as needed
+  shell: cd /opt/blackarch && if pacman -Ss blackarch > /dev/null ; then echo "Already Installed"; else sudo sh ./strap.sh; fi
+  tags:
+    - blackarch

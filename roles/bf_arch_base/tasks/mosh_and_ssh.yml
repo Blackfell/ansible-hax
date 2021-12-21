@@ -1,0 +1,36 @@
+---
+
+- name: Mosh
+  package:
+    name: mosh
+    state: latest
+
+- name: Harden sshd configuration
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^#?PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^#?PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^#?AllowAgentForwarding"
+      line: "AllowAgentForwarding no"
+    - regexp: "^#?MaxAuthTries"
+      line: "MaxAuthTries 3"
+    - regexp: "^#?MaxSessions"
+      line: "MaxSessions 5"
+#    - regexp: "^#?TCPKeepAlive"  # This will cause inactive sessions to hand and give us config/fail2ban issues
+#      line: "TCPKeepAlive no"
+    - regexp: "^#?UseDNS"
+      line: "UseDNS no"
+    - regexp: "^#?Port"
+      line: "Port {{ssh_port}}"
+
+- name: Restart sshd
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: sshd

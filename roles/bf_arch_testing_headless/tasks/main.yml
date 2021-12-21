@@ -1,0 +1,6 @@
+---
+- include: blackarch.yml
+- include: bb_tools.yml
+- include: git_tools.yml
+- include: rust_tools.yml
+- include : go_get.yml

@@ -1,0 +1,14 @@
+---
+- name: Install Docker
+  package: name={{ item }} state=present
+  with_items:
+    - docker
+    - docker-compose
+  tags:
+          - bugbounty
+
+- name: Enable Docker
+  service: 
+    name: docker
+    enabled: yes
+    state: started 

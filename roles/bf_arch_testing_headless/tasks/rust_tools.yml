@@ -1,0 +1,33 @@
+---
+  #All root tools permissioned owned by ansible, but group as bugbounty
+- name: Give ansible user permissions to write in /opt/cargo
+  file:
+    path: /opt/cargo
+    state: directory
+    mode: '0775'
+    owner: "{{ bbvps_users.ansible_user.name }}"
+    group: "{{ bb_group }}"
+  with_items: "{{ bb_rust }}"
+  become: true
+
+- name: Custom tool installation commands
+  shell:
+    cmd: cargo install --root /opt/cargo {{ item }}
+  become: yes
+  with_items: "{{ bb_rust }}"
+
+- name: Ensure custom path file exists
+  file:
+    path: /etc/profile.d/custom-ansible-path.sh
+    state: touch
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Add cargo dir to PATH
+  lineinfile:
+    dest: /etc/profile.d/custom-ansible-path.sh
+    state: present
+    line: 'PATH=$PATH:/opt/cargo/bin'
+  become: yes
+  become_user: root

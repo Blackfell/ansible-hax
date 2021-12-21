@@ -1,0 +1,59 @@
+---
+#dependencies:
+#  - role: desktop_base
+
+- name: Install Packages
+  pacman: name={{ bb_i3 }} state=present
+  tags:
+          - gui
+          - i3
+
+- name: Install AUR tools
+  shell: yay --noconfirm -S {{item}}
+  with_items: "{{bb_i3_aur}}"
+  when: bb_i3_aur is defined
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+          - aur
+  
+- name: Set Config for each user
+  copy:
+    src: config/
+    dest: /home/{{ item.value.name}}/.config/
+    mode: 0744
+    owner: "{{item.value.name }}"
+    group: "{{item.value.group }}"
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - i3
+
+- name: Configure Pywal
+  copy:
+    src: wal
+    dest: /home/{{ item.value.name}}/.cache/
+    mode: 0744
+    owner: "{{item.value.name }}"
+    group: "{{item.value.group }}"
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - i3
+
+- name: Move conky helper to host
+  copy:
+    src: start_conky_bf
+    dest: /usr/bin/
+    group: users
+    mode: 0755
+
+- name: Move conky files to host
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/conky/
+    group: users
+    mode: 0744
+  with_items: 
+    - conky_shortcuts_bf
+    - conky_bf
+  tags: 
+    - i3

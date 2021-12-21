@@ -1,0 +1,123 @@
+---
+# Get around peda gef and pwndbg install being so interactive
+
+- name: Init to check task is called
+  shell:
+    chdir: /opt/peda_gef_pwndbg
+    cmd: echo "TESTING THE IMPORTING OF INSTALL TASKS" > /opt/peda_gef_pwndbg/test.txt
+  become: yes
+
+- name: See if we can collapse users and add root
+  set_fact:
+    #user_list: "[ {{ user_list | default([]) }} + {{item.value.name}} , root ] "
+    user_list: "{{ item.value.name  }}"
+  with_items: "{{ bbvps_users | dict2items }}"
+
+- name: print user list
+  debug: var=user_list
+
+- name: Backup user's gdbinit
+  shell:
+    cmd: "if [ -f ~/.gdbinit ] || [ -h ~/.gdbinit ]; then mv ~/.gdbinit ~/.gdbinit.back_up; fi"
+  become: yes
+  become_user: "{{ item.value.name}}"
+  with_dict: "{{ bbvps_users }}"
+
+- name: Backup root's gdbinit
+  shell:
+    cmd: "if [-f ~/.gdbinit ] || [ -h ~/.gdbinit ]; then mv ~/.gdbinit ~/.gdbinit.back_up; fi"
+  become: yes
+  become_user: root
+
+- name: Clone latest peda into everyone's home
+  git:
+    repo: https://github.com/longld/peda.git
+    dest: ~/peda
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: "{{ item.value.name}}"
+  with_dict: "{{ bbvps_users }}"
+
+- name: Clone latest peda into root home
+  git:
+    repo: https://github.com/longld/peda.git
+    dest: ~/peda
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: root
+
+- name: Clone latest pwndebug into everyone's home
+  git:
+    repo: https://github.com/pwndbg/pwndbg.git
+    dest: ~/pwndbg
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: "{{ item.value.name}}"
+  with_dict: "{{ bbvps_users }}"
+
+- name: Clone latest pwndebug into root home
+  git:
+    repo: https://github.com/pwndbg/pwndbg.git
+    dest: ~/pwndbg
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: root
+
+- name: Clone latest gef into everyone's home
+  git:
+    repo: https://github.com/hugsy/gef.git
+    dest: ~/gef
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: "{{ item.value.name}}"
+  with_dict: "{{ bbvps_users }}"
+
+- name: Clone latest gef into root home
+  git:
+    repo: https://github.com/hugsy/gef.git
+    dest: ~/gef
+    accept_hostkey: yes
+    update: yes
+  become: yes
+  become_user: root
+
+- name: Set gdbinit from repo
+  copy:
+    src: /opt/peda_gef_pwndbg/gdbinit
+    remote_src: yes
+    dest: ~/.gdbinit
+    mode: 0744
+  become: yes
+  become_user: "{{ item.value.name}}"
+  with_dict: "{{ bbvps_users }}"
+
+- name: Set root gdbinit from repo
+  copy:
+    src: /opt/peda_gef_pwndbg/gdbinit
+    remote_src: yes
+    dest: /root/.gdbinit
+    mode: 0744
+  become: yes
+  become_user: root
+
+- name: Set up system binary file names
+  set_fact:
+    gpp_system_bins:
+      - gdb-peda
+      - gdb-pwndbg
+      - gdb-gef
+
+- name: Create system bins for this repo
+  copy:
+    src: /opt/peda_gef_pwndbg/{{item}}
+    remote_src: yes
+    dest: /usr/bin/
+    mode: 0755
+  become: yes
+  become_user: root
+  with_items: "{{gpp_system_bins}}"

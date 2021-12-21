@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/hullet/Pictures/BFBackground.png",
+    "alpha": "100",
+    "special": {
+        "background": "#fafafa",
+        "foreground": "#030303",
+        "cursor": "#030303"
+    },
+    "colors": {
+        "color0": "#fafafa",
+        "color1": "#8282bc",
+        "color2": "#bc82bc",
+        "color3": "#82bcbc",
+        "color4": "#c59494",
+        "color5": "#d2acac",
+        "color6": "#d2adad",
+        "color7": "#030303",
+        "color8": "#888888",
+        "color9": "#8282bc",
+        "color10": "#bc82bc",
+        "color11": "#82bcbc",
+        "color12": "#c59494",
+        "color13": "#d2acac",
+        "color14": "#d2adad",
+        "color15": "#030303"
+    }
+}

@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes
+  remote_user: vagrant
+  tasks:
+    #- name: Update all packages
+    #  import_tasks: tasks/update.yml
+    #  tags:
+    #    - update
+
+    - name: Arch base configuration
+      include_role:
+        name: bf_arch_base
+
+    - name: Desktop base tools
+      include_role:
+        name: bf_arch_desktop_base
+
+    - name: i3 Desktop Environment
+      include_role: 
+        name: bf_arch_i3_vm
+
+    - name: Configure CLI testing stuff
+      include_role:
+        name: bf_arch_testing_headless
+
+    - name: Configure graphical testing stuff
+      include_role:
+        name: bf_arch_testing_gui

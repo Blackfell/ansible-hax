@@ -1,0 +1,12 @@
+---
+- name: Update all packages
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  tags:
+    - update
+
+- name: Reboot in case of kernel update
+  reboot:
+  tags:
+    - reboot

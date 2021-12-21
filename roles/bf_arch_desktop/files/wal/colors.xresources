@@ -1,0 +1,45 @@
+URxvt*foreground: #A3A4C7
+XTerm*foreground: #A3A4C7
+URxvt*background: #1D2951
+XTerm*background: #1D2951
+URxvt*cursorColor: #A3A4C7
+XTerm*cursorColor: #1D2951
+*color0: #1D2951
+*.color0: #1D2951
+*color1: #256DB3
+*.color1: #256DB3
+*color2: #697494
+*.color2: #697494
+*color3: #287DC1
+*.color3: #287DC1
+*color4: #827C9A
+*.color4: #827C9A
+*color5: #4D94BF
+*.color5: #4D94BF
+*color6: #308CC8
+*.color6: #308CC8
+*color7: #A3A4C7
+*.color7: #A3A4C7
+*color8: #666666
+*.color8: #666666
+*color9: #256DB3
+*.color9: #256DB3
+*color10: #697494
+*.color10: #697494
+*color11: #287DC1
+*.color11: #287DC1
+*color12: #827C9A
+*.color12: #827C9A
+*color13: #4D94BF
+*.color13: #4D94BF
+*color14: #308CC8
+*.color14: #308CC8
+*color15: #A3A4C7
+*.color15: #A3A4C7
+*color66: #1D2951
+rofi.color-window: argb:FF1D2951, #1D2951, #697494
+rofi.color-normal: argb:FF1D2951, #A3A4C7, #1D2951, #697494, #1D2951
+rofi.color-active: argb:FF1D2951, #A3A4C7, #1D2951, #697494, #1D2951
+rofi.color-urgent: argb:FF1D2951, #256DB3, #1D2951, #256DB3, #A3A4C7
+emacs*background: #1D2951
+emacs*foreground: #A3A4C7

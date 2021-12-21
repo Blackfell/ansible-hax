@@ -1,0 +1,115 @@
+---
+- name: Install oh my zsh for each user so they can customise later
+  shell: "if [ ! -d ~/.oh-my-zsh/ ]; then /usr/share/oh-my-zsh/tools/install.sh; fi"
+  become: yes
+  become_user: "{{ item.value.name }}"
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - customisation
+
+#- name: Set Zsh theme to agnoster for each user
+#  lineinfile:
+#    dest: ~/.zshrc
+#    regexp: ^ZSH_THEME"
+#    line: "ZSH_THEME=agnoster"
+#    state: present
+#  become: yes
+#  become_user: "{{ item.value.name }}"
+#  with_dict: "{{ bbvps_users }}"
+#  tags:
+#    - customisation
+
+- name: Set global Zsh theme 2 - set theme for each user
+  copy:
+    src: ../files/.zshrc
+    dest: /home/{{ item.value.name}}/.zshrc
+    mode: 0744
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - customisation
+
+- name: Set p10k theme for each user
+  copy:
+    src: ../files/p10k.zsh
+    dest: /home/{{ item.value.name}}/.p10k.zsh
+    mode: 0744
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - customisation
+
+- name: Set root shell to ZSH too
+  user:
+    name: root
+    shell: /bin/zsh
+  tags:
+    - customisation
+
+- name: Configure oh my zsh for root
+  shell: "if [ ! -d /root/.oh-my-zsh/ ]; then /usr/share/oh-my-zsh/tools/install.sh; fi"
+  become: yes
+  become_user: root
+  tags:
+    - customisation
+
+- name: Set global Zsh theme 4 - set theme for root as SPECIAL just cos
+  copy:
+    src: ../files/root.zshrc
+    dest: /root/.zshrc
+    owner: root
+    group: root
+    mode: 0744
+    #become: yes
+    #become_user: root
+  tags:
+    - customisation
+
+- name: Global vimrc config - Changed to push a vimrc
+  copy:
+    src: vimrc
+    dest: /etc/vimrc
+    owner: root
+    group: root
+    mode: 0555
+
+#- name: Global vimrc config - One day push a vimrc?
+#  lineinfile:
+#    dest: /etc/vimrc
+#    state: present
+#    line: "{{ item }}"
+#  with_items:
+#    - let g:airline_powerline_fonts = 1
+#    - let g:airline#extensions#tabline#enabled = 1
+#    - let g:airline_theme = 'solarized'
+#    - set number
+#    - syntax on
+#    - set history=50
+#    - set ls=2
+#    - set showmode
+#    - set showcmd
+#    - set modeline
+#    - set ruler
+#    - set title
+#    - set nowrap
+#    - set linebreak
+#    - set showbreak=▹
+#    - set autoindent
+#    - set ignorecase
+#    - set smartcase
+#    - set gdefault
+#    - set hlsearch
+#    - set showmatch
+#    - set hidden
+#    - set backspace=eol,start,indent
+#    - set shiftwidth=4
+#    - set tabstop=4
+#    - set softtabstop=4
+#    - set shiftround
+#    - set expandtab
+#    - set nocompatible
+#    - filetype plugin on
+#    - set path+=**
+#    - set wildmenu
+#    - nmap <Leader>b :!echo <C-R><C-W> \| base64 -d<CR>
+#    - nmap <Leader>g :tabnew\|read !grep -Hnr '<C-R><C-W>'<CR>
+#    - nmap <Leader>s :%!sort -u --version-sort<CR>
+#    - nmap <Leader>W :w !sudo tee % > /dev/null

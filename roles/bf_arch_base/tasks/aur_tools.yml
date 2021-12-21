@@ -1,0 +1,9 @@
+- name: Install AUR tools
+  shell: yay --noconfirm -S {{item}}
+  with_items: "{{core_aur}}"
+  when: core_aur is defined
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+    - aur
+    - yay

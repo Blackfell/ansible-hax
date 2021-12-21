@@ -1,0 +1,24 @@
+---
+- name: set timezone to "{{ timezone }}"
+  timezone:
+          hwclock: local
+          name: "{{ timezone }}"
+  tags:
+          - locale
+
+- name: Install locales "{{ locale }}"
+  locale_gen:
+          name: "{{ locale }}"
+          state: present
+  tags:
+          - locale
+
+- name: Configure locale "{{ locale }}"
+  command: localectl set-locale LANG="{{locale}}"
+  tags:
+          - locale
+
+- name: Configure keymap "{{ keymap }}"
+  command: localectl set-keymap "{{keymap}}"
+  tags:
+          - locale

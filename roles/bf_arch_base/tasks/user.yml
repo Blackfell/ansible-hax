@@ -1,0 +1,57 @@
+---
+- name: Create  various user groups
+  group:
+    name: "{{ item.value.group }}"
+    state: present
+  with_dict: "{{ bbvps_users }}"
+
+- name: Create bug bounty specific user group
+  group:
+    name: "{{ bb_group }}"
+    state: present
+
+- name: Create user account
+  user:
+    name: "{{ item.value.name }}"
+    group: "{{ item.value.group }}"
+    shell: "{{ item.value.shell }}"
+    create_home: "{{ item.value.create_home }}"
+    update_password: "{{ item.value.update_password }}"
+    groups: "{{ item.value.groups }}"
+    append: "{{ item.value.append }}"
+    password: "{{ item.value.password }}"
+  with_dict: "{{ bbvps_users }}"
+  tags:
+          - user
+
+- name: Add ssh keys so we can still access the machine
+  authorized_key:
+    user: "{{item.value.name}}"
+    key: "{{ lookup('file', item.value.ssh_key_name) }}"
+  with_dict: "{{ bbvps_users }}"
+
+# Now custom user sudo configs
+
+- name: Allow wheel to sudo
+  lineinfile:
+          dest: /etc/sudoers
+          state: present
+          regexp: '^# %wheel ALL\=\(ALL\) ALL'
+          line: '%wheel ALL=(ALL) ALL'
+          validate: 'visudo -cf %s'
+
+- name: Allow ansible_user to sudo passwordless for specific package building reasons
+  lineinfile:
+          dest: /etc/sudoers
+          state: present
+          #We need pacman and git to install packages passwordless
+          line: "{{bbvps_users.ansible_user.name}} ALL=(ALL) NOPASSWD: /usr/bin/pacman, /usr/bin/git"
+          validate: 'visudo -cf %s'
+
+- name: Create sshfs dumps in main users' home directory
+  file:
+    path: /home/{{ bbvps_users.main_user.name }}/sshfs_dump
+    state: directory
+    mode: '0750'
+    owner: "{{ bbvps_users.main_user.name }}"
+    group: "{{ bbvps_users.main_user.name }}"

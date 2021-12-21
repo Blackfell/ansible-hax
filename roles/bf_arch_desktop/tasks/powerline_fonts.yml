@@ -1,0 +1,47 @@
+---
+
+- name: Configure Powerline Directory 
+  file:
+    path: "/opt/{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: "{{bbvps_users.ansible_user.name}}"
+    group: root
+  become: true
+  with_items:
+    - powerline
+    - fonts
+  tags:
+          - gui
+          - grub
+
+- name: Configure Grub
+  copy:
+          src: grub_theme.txt
+          dest: /usr/share/grub/themes/blackfell/theme.txt
+  tags:
+          - gui
+          - grub
+- name: Clone or update fonts repo
+  git: repo="https://github.com/powerline/fonts.git" dest=/opt/fonts accept_hostkey=yes update=yes
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+    - yay
+
+- name: Give ansible user permissions to write in /opt/tool(s)
+  file:
+    path: /opt/fonts
+    state: directory
+    mode: '0755'
+    owner: "{{ bbvps_users.ansible_user.name }}"
+    group: "{{ bb_group }}"
+  become: true
+
+
+- name: Install fonts
+  shell:
+    chdir: /opt/fonts
+    cmd: ./install.sh
+  become: yes
+  become_user: "{{bbvps_users.main_user.name}}"

@@ -1,0 +1,73 @@
+---
+
+- name: Enable lightdm manager
+  service: 
+    name: lightdm
+    enabled: yes 
+
+- name: setup lightdm greeter
+  copy:
+          src: lightdm.conf
+          dest: /etc/lightdm/
+  tags:
+          - gui
+
+#- name: Configure Grub Directory 
+#  file:
+#    path: /usr/share/grub/themes/blackfell/
+#    state: directory
+#    mode: '0755'
+#    owner: root
+#    group: root
+#  become: true
+#  tags:
+#          - gui
+#          - grub
+
+- name: Configure Grub theme directory
+  copy:
+    src: grub_theme
+    dest: /usr/share/grub/themes/blackfell
+  tags:
+    - gui
+    - grub
+
+- name: Configure Grub Defaults
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: "^#{0,1}GRUB_DISABLE_RECOVERY=true"
+      line: "GRUB_DISABLE_RECOVERY=true"
+    - regexp: "^#{0,1}GRUB_COLOR_NORMAL=.*"
+      line: "GRUB_COLOR_NORMAL=\"light-gray/black\""
+    - regexp: "^#{0,1}GRUB_COLOR_HIGHLIGHT=.*"
+      line: "GRUB_COLOR_HIGHLIGHT=\"green/black\""
+    - regexp: "^#{0,1}GRUB_THEME=.*"
+      line: "GRUB_THEME=\"/usr/share/grub/themes/blackfell/theme.txt\""
+    - regexp: "^#{0,1}GRUB_ENABLE_CRYPTODISK=.*"
+      line: "GRUB_ENABLE_CRYPTODISK=y"
+    - regexp: "^#{0,1}GRUB_DISABLE_SUBMENU=.*"
+      line: "GRUB_DISABLE_SUBMENU=y"
+    - regexp: "^#{0,1}GRUB_DISABLE_OS_PROBER=.*"
+      line: "GRUB_DISABLE_OS_PROBER=false"
+  tags:
+    - gui
+    - grub
+
+- name: Configure Grub Via grub-mkconfig
+  shell: grub-mkconfig -o /boot/grub/grub.cfg
+  become: yes
+  become_user: root
+  tags:
+    - gui
+    - grub
+
+- name: Set Logon Background
+  copy:
+          src: slick-greeter.conf
+          dest: /etc/lightdm/
+  tags:
+          - gui
