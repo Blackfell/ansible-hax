@@ -11,7 +11,7 @@ bbvps_users:
     update_password: on_create
     groups: wheel,users,audio,storage,{{bb_group}}
     append: yes
-    # Create with
+    # FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
     password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
     ssh_key_name: /tmp/SPECIFY_YOUR_SSH_KEY_HERE
@@ -23,6 +23,8 @@ bbvps_users:
     update_password: on_create
     groups: wheel,users,audio,storage
     append: yes
+    #FAKE PASSWORDS!!! Create with
+    # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
     password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
     ssh_key_name: /tmp/SPECIFY_YOUR_SSH_KEY_HERE
 
@@ -30,9 +32,9 @@ timezone: Europe/London
 locale: en_GB.UTF-8
 keymap: uk
 
-bb_group: bugbounty
+bb_group: haxxors
 
-hostname: bbvps
+hostname: WOPR
 
 ############## Host Security & Remoting  #################
 
