@@ -4,8 +4,8 @@ configuration {
 	font: "Meslo LG S DZ For Powerline 11";
 	modi: "drun";
 	location: 0;
-	xoffset: -320;
-	yoffset: -320;
+	xoffset: 0;
+	yoffset: 0;
 	width: 25;
 	lines: 10;
 }

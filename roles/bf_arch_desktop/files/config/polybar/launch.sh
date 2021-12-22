@@ -9,6 +9,9 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
+# Get WAl colours
+source $HOME/.cache/wal/colors.sh
+
 # Launch Polybar, using default config location ~/.config/polybar/config
 polybar example >/dev/null & disown # Tee into logfile if needed
 #polybar leftbar >/dev/null & disown # Tee into logfile if needed

@@ -31,23 +31,23 @@ background-light=#333333'
 foreground-dark=#CCCCCC'
 cursor=#FF99CC'
 
-# Colors
-color0=#fafafa
-color1=#ca1243
-color2=#50a14f
-color3=#c18401
-color4=#4078f2
-color5=#a626a4
-color6=#0184bc
-color7=#383a42
-color8=#a0a1a7
-color9=#ca1243
-color10=#50a14f
-color11=#c18401
-color12=#4078f2
-color13=#a626a4
-color14=#0184bc
-color15=#090a0b
+# Colors from wal
+color0=${env:color0:#fafafa}
+color1=${env:color1:#ca1243}
+color2=${env:color2:#50a14f}
+color3=${env:color3:#c18401}
+color4=${env:color4:#4078f2}
+color5=${env:color5:#a626a4}
+color6=${env:color6:#0184bc}
+color7=${env:color7:#383a42}
+color8=${env:color8:#a0a1a7}
+color9=${env:color9:#ca1243}
+color10=${env:color10:#50a14f}
+color11=${env:color11:#c18401}
+color12=${env:color12:#4078f2}
+color13=${env:color13:#a626a4}
+color14=${env:color14:#0184bc}
+color15=${env:color15:#090a0b}
 
 [bar/example]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -79,7 +79,7 @@ font-1 = unifont:fontformat=truetype:size=7:antialias=false;0
 font-2 = siji:pixelsize=12;1
 font-3 = Meslo LG S DZ for Powerline:pixelsize=30
 
-modules-left = i3 sep eth sep wlan left-end-top 
+modules-left = i3 sep eth sep wlan left-end-top
 modules-center = right-end-top spacer left-end-top
 fixed-center = true
 #modules-right = filesystem xbacklight xkeyboard memory cpu wlan eth battery temperature date powermenu
@@ -160,10 +160,10 @@ interval = 25
 
 mount-0 = /
 
-format-mounted = <label-mounted> 
+format-mounted = <label-mounted>
 #<bar-used>
 
-label-mounted = %free% / %total% 
+label-mounted = %free% / %total%
 label-mounted-underline = ${colors.color2}
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
@@ -283,8 +283,8 @@ interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = ${colors.color5}
-label-connected = "%essid% : %local_ip% : %local_ip6% " 
-# Removed - : %signal% : %downspeed% 
+label-connected = "%essid% : %local_ip% : %local_ip6% "
+# Removed - : %signal% : %downspeed%
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -341,10 +341,10 @@ adapter = ACAD
 full-at = 96
 
 
-format-charging = <animation-charging> <label-charging> 
+format-charging = <animation-charging> <label-charging>
 format-charging-underline = ${colors.color8}
 
-format-discharging = <animation-discharging> <label-discharging> 
+format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = " "

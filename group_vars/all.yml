@@ -14,7 +14,7 @@ bbvps_users:
     # FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
     password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
-    ssh_key_name: /tmp/SPECIFY_YOUR_SSH_KEY_HERE
+    ssh_key_name: /home/hullet/.ssh/linode@blackfell.net.pub
   ansible_user:
     name: myansible
     group: ansible
@@ -26,7 +26,7 @@ bbvps_users:
     #FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
     password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
-    ssh_key_name: /tmp/SPECIFY_YOUR_SSH_KEY_HERE
+    ssh_key_name: /home/hullet/.ssh/linode_ansible@blackfell.net.pub
 
 timezone: Europe/London
 locale: en_GB.UTF-8
@@ -111,6 +111,7 @@ core_networking:
     - netctl
     - openbsd-netcat
     - iputils
+    - iw
 core_aur:
     - bash-pipes
     - oh-my-zsh-git
@@ -156,6 +157,7 @@ bb_gui_tools:
   - lynx
   - flameshot
   - syncthing
+  - mousepad
 
 ############ i3 VM Tools #######################
 
@@ -200,6 +202,8 @@ bb_recon:
   - waybackurls
   - assetfinder
   - amass
+  - crackmapexec
+  - wafw00f
 
 bb_enum:
   - wfuzz
@@ -210,6 +214,7 @@ bb_enum:
   - seclists
   - meg
   - rustscan
+  - wpscan
 
 bb_vuln:
   - exploitdb
@@ -221,6 +226,8 @@ bb_vuln:
   - snmpcheck
   - net-snmp
   - blackarch/pwntools
+  - smbmap
+
 
 # TODO - Include SNMPBLOW?
 # apt-get install tftpd-hpa
@@ -238,11 +245,20 @@ bb_exploit:
   - empire
   - gdb
   - blackarch/gef
+  - thc-ipv6
+  - smbexec
+  - android-apktool
+  - angr
+  - radare2
+  - frida
+  - dwarf
+  - binwalk
 
 bb_post:
   - linenum
   - powersploit
   - evil-winrm
+  - pwncat-caleb
 
 bb_general:
   - proxychains
@@ -307,6 +323,12 @@ bb_gui_pentest:
   - veracrypt
   - pulseview
   - winexe
+  - arduino
+  - gnuradio
+  - yersinia
+  - angr-management
+
+
 
     #TODO
     # Pro tooling

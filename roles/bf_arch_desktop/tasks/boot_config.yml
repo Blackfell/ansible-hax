@@ -1,9 +1,9 @@
 ---
 
 - name: Enable lightdm manager
-  service: 
+  service:
     name: lightdm
-    enabled: yes 
+    enabled: yes
 
 - name: setup lightdm greeter
   copy:
@@ -12,7 +12,7 @@
   tags:
           - gui
 
-#- name: Configure Grub Directory 
+#- name: Configure Grub Directory
 #  file:
 #    path: /usr/share/grub/themes/blackfell/
 #    state: directory
@@ -71,3 +71,11 @@
           dest: /etc/lightdm/
   tags:
           - gui
+
+- name: Configure VM Screen sizing at boot
+  copy:
+    src: lightdm_vm_screens.sh
+    dest: /usr/bin/
+  become: true
+  tags:
+    - gui

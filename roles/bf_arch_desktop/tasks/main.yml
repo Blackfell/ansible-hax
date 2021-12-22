@@ -12,10 +12,14 @@
           - tools
 
 # TODO - separate per-DE?
-- name: Set gtk themes
+- name: Set gtk-2 theme
   copy:
-          src: gtkrc
+          src: gtkrc-2.0
           dest: /usr/share/gtk-2.0/
+  tags:
+          - gui
+
+- name: Set gtk-3 theme
   copy:
           src: settings.ini
           dest: /usr/share/gtk-3.0/
@@ -44,7 +48,7 @@
 - name: Configure Fonts for Powerline
   include: powerline_fonts.yml
 
-- name: Enable ACPI & Bluetooth Services
+- name: Enable ACPI, NetworkManager & Bluetooth Services
   service:
     name: "{{ item }}"
     state: started
@@ -52,6 +56,6 @@
   with_items:
     - acpid
     - bluetooth
+    - NetworkManager
 
 - include: i3.yml
-- include: desktop_testing.yml

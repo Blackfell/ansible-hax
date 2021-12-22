@@ -16,7 +16,7 @@
   become_user: "{{bbvps_users.ansible_user.name}}"
   tags:
           - aur
-  
+
 - name: Set Config for each user
   copy:
     src: config/
@@ -52,8 +52,8 @@
     dest: /usr/share/conky/
     group: users
     mode: 0744
-  with_items: 
+  with_items:
     - conky_shortcuts_bf
     - conky_bf
-  tags: 
+  tags:
     - i3

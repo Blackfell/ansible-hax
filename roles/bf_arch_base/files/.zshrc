@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-cat $HOME/.cache/wal/sequences &
+cat $HOME/.cache/wal/sequences
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -76,3 +76,4 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 export QT_STYLE_OVERRIDE=gtk2
 nsearch() {basename -a $(locate .nse | grep "$1")}
+getsploit () {EXPLT=$(locate $1); if [ $(echo $EXPLT | wc -l) = 1 ]; then cp $EXPLT . ; else echo "Multiple matches:\n $EXPLT"; fi}
