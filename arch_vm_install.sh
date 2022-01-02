@@ -40,7 +40,7 @@ arch-chroot /mnt
 mkinitcpio -P
 
 # The only tools we really need to run ansible
-pacman -Sy sudo git vim python efibootmgr grub --noconfirm
+pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm
 
 # Install grub - EFI mode
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB $INSTALL_DISK
