@@ -36,13 +36,13 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # Now chroot into that bad boy and do STUFF
 
 # Locale will be managed via Ansible
-arch-chroot /mnt "mkinitcpio -P"
+arch-chroot /mnt mkinitcpio -P
 
 # The only tools we really need to run ansible
-arch-chroot /mnt "pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm"
+arch-chroot /mnt pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm
 
 # Install grub - EFI mode
-arch-chroot /mnt "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB $INSTALL_DISK"
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB $INSTALL_DISK
 
 echo "[+] Install complete"
 echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD"
