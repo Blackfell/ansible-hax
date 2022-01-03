@@ -34,16 +34,19 @@ pacstrap /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Now chroot into that bad boy and do STUFF
-arch-chroot /mnt
+#arch-chroot /mnt
 
 # Locale will be managed via Ansible
-mkinitcpio -P
+CHRT_CMD="mkinitcpio -P"
 
 # The only tools we really need to run ansible
-pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm
+CHRT_CMD="$CHRT_CMD && pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm"
 
 # Install grub - EFI mode
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB $INSTALL_DISK
+CHRT_CMD="$CHRT_CMD && grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB $INSTALL_DISK"
+
+# Now chroot into that bad boy and do STUFF
+arch-chroot /mnt $CHROOT_COMMANDS || echo "[!] Error in chroot."
 
 echo "[+] Install complete"
 echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD"
