@@ -1,0 +1,133 @@
+
+configuration {
+    modi: "drun";
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "";
+    drun-display-format: "{name}";
+		font: "Meslo LG S DZ For Powerline 11";
+}
+
+
+@import "~/.cache/wal/colors-rofi-light.rasi"
+
+* {
+
+}
+
+#window {
+    transparency: "real";
+    fullscreen: true;
+    background-color: @background;
+}
+
+#mainbox {
+    border:  0;
+    padding: 0;
+    padding : 10% 5% 5% 5%;
+    children: [inputbar, listview];
+    background-color: transparent;
+    spacing:                       	5%;
+}
+
+inputbar {
+    border-radius: 50%;
+    background-color: @background;
+    children: [prompt, entry];
+    margin: 5px 20% 5px 20%;
+}
+
+entry {
+    background-color: @selected-normal-foreground;
+    padding: 10px;
+    placeholder: "Search...";
+    placeholder-color: @background;
+    text-color: @background;
+}
+
+prompt {
+    padding: 10px;
+    background-color: @selected-normal-background;
+    text-color: @selected-normalt-foreground;
+}
+
+#listview {
+    orientation: horizontal;
+    columns: 3;
+    lines: 10;
+    layout: vertical;
+    background-color: transparent;
+}
+
+element {
+    padding: 2%;
+    border-radius: 5px;
+    width: 5%;
+    margin: 0.55%;
+}
+
+element-icon {
+    size: 48px;
+    margin: 2px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+
+/* --NORMAL-- */
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @normal-foreground;
+}
+
+element selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+
+/* --ACTIVE-- */
+
+element normal.active {
+    background-color: @selected-normal-background;
+}
+
+element selected.active {
+   background-color: @selected-active-background;
+   text-color: @selected-active-foreground;
+}
+
+element alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+
+/* --URGENT-- */
+
+element normal.urgent {
+    background-color: @urgent-backgroundt;
+    text-color:       @urgent-foreground;
+}
+
+element selected.urgent {
+   background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+
+element alternate.urgent {
+    background-color: @alternate-urgent;
+    text-color:       @alternate-urgent-foreground;
+}

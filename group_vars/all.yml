@@ -158,6 +158,7 @@ bb_gui_tools:
   - flameshot
   - syncthing
   - mousepad
+  - zathura
 
 ############ i3 VM Tools #######################
 
@@ -176,6 +177,8 @@ bb_i3:
   - papirus-icon-theme
   - noto-fonts
   - network-manager-applet
+  - dunst
+  - flameshot
 
 bb_i3_aur:
   - termite
@@ -206,27 +209,28 @@ bb_recon:
   - wafw00f
 
 bb_enum:
-  - wfuzz
-  - ffuf
-  - dirb
-  - gobuster
-  - enum4linux
-  - seclists
-  - meg
-  - rustscan
-  - wpscan
+  - blackarch/wfuzz
+  - blackarch/ffuf
+  - blackarch/dirb
+  - blackarch/gobuster
+  - blackarch/enum4linux
+  - blackarch/seclists
+  - blackarch/meg
+  - blackarch/rustscan
+  - blackarch/wpscan
+  - blackarch/netdiscover
 
 bb_vuln:
-  - exploitdb
-  - snmpcheck
-  - hydra
-  - nikto
-  - wpscan
-  - onesixtyone
-  - snmpcheck
+  - blackarch/exploitdb
+  - blackarch/snmpcheck
+  - blackarch/hydra
+  - blackarch/nikto
+  - blackarch/wpscan
+  - blackarch/onesixtyone
+  - blackarch/snmpcheck
   - net-snmp
   - blackarch/pwntools
-  - smbmap
+  - blackarch/smbmap
 
 
 # TODO - Include SNMPBLOW?
@@ -237,22 +241,22 @@ bb_vuln:
 
 
 bb_exploit:
-  - sqlmap
+  - blackarch/sqlmap
   - afl
   - afl-utils
-  - sulley
-  - metasploit
-  - empire
+  - blackarch/sulley
+  - blackarch/metasploit
+  - blackarch/empire
   - gdb
   - blackarch/gef
-  - thc-ipv6
-  - smbexec
-  - android-apktool
-  - angr
-  - radare2
-  - frida
-  - dwarf
-  - binwalk
+  - blackarch/thc-ipv6
+  - blackarch/smbexec
+  - blackarch/android-apktool
+  - blackarch/angr
+  - blackarch/radare2
+  - blackarch/frida
+  - blackarch/dwarf
+  - blackarch/binwalk
 
 bb_post:
   - linenum
@@ -270,6 +274,7 @@ bb_general:
   - go
   - go-tools
   - unfurl
+  - blackarch/john
 
 # Tools from Git  - Name and repo required.
 bb_git:
@@ -306,27 +311,28 @@ current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
 ########## GUI Testing TOOLS  ##########
 
 bb_gui_pentest:
-  - burpsuite
-  - zaproxy
+  - blackarch/burpsuite
+  - blackarch/zaproxy
   - firefox
-  - wireshark-cli
-  - wireshark-qt
+  - blackarch/wireshark-cli
+  - blackarch/wireshark-qt
   - termshark
-  - netdiscover
+  - blackarch/netdiscover
   - aircrack-ng
-  - kismet
-  - macchanger
-  - ghidra
-  - r2ghidra
-  - ollydbg
+  - blackarch/wifite
+  - blackarch/kismet
+  - blackarch/macchanger
+  - blackarch/ghidra
+  - blackarch/r2ghidra
+  - blackarch/ollydbg
   - keepassxc
-  - veracrypt
+  - blackarch/veracrypt
   - pulseview
-  - winexe
-  - arduino
-  - gnuradio
-  - yersinia
-  - angr-management
+  - blackarch/winexe
+  - blackarch/arduino
+  - blackarch/gnuradio
+  - blackarch/yersinia
+  - blackarch/angr-management
 
 
 

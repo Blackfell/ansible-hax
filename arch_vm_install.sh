@@ -26,8 +26,8 @@ mkfs.fat -F 32 "${INSTALL_DISK}1"
 
 # Mount the disks
 mount "${INSTALL_DISK}2" /mnt
-mkdir /mnt/boot
-mount "${INSTALL_DISK}1" /mnt/boot
+mkdir -p /mnt/efi
+mount "${INSTALL_DISK}1" /mnt/efi
 
 # Base install + config
 pacstrap /mnt base linux linux-firmware
@@ -42,7 +42,7 @@ arch-chroot /mnt mkinitcpio -P
 arch-chroot /mnt pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm
 
 # Install grub - EFI mode
-arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB $INSTALL_DISK
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB $INSTALL_DISK
 
 echo "[+] Install complete"
 echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD"
