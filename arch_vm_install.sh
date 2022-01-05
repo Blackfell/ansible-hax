@@ -42,7 +42,7 @@ arch-chroot /mnt mkinitcpio -P
 arch-chroot /mnt pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm
 
 # Install grub - EFI mode
-arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB $INSTALL_DISK
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 
 echo "[+] Install complete"
 echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD"
