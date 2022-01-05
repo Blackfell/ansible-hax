@@ -58,18 +58,14 @@ arch-chroot /mnt echo "arch" > /etc/hostname
 # Now enable the system to boot
 arch-chroot /mnt mkinitcpio -P
 
-# The only tools we really need to run ansible
-arch-chroot /mnt pacman -S sudo git vim python efibootmgr glibc grub --noconfirm
+# The only tools we really need to boot and run ansible
+arch-chroot /mnt pacman -S sudo git vim python sshd efibootmgr glibc grub amd-ucode intel-ucode dhclient iputils inetutils  --noconfirm
 
 # Install grub - EFI mode
 arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
-# Install microcode - just both because who knows
-arch-chroot /mnt pacman -S amd-ucode intel-ucode --noconfirm
+echo "[+] Install complete, but..."
+echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD NOW."
 
-# Now enable the system to boot
-arch-chroot /mnt mkinitcpio -P
-
-echo "[+] Install complete"
-echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD"
 arch-chroot /mnt passwd
