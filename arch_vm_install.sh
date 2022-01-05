@@ -12,7 +12,20 @@ then
   echo "[+] Internet accessible"
 else
   echo "[!] Could not reach archlinux.org. Exiting..."
+  exit
 fi
+
+# Test efi
+if ls /sys/firmware/efi/efivars > /dev/null
+then
+  echo "[+] You have EFI support"
+else
+  echo "[!] You do not have EFI support. Exiting..."
+  exit
+fi
+
+# Set clock
+timedatectl set-ntp true
 
 # Partition the disk
 parted $INSTALL_DISK mklabel GPT
@@ -26,8 +39,8 @@ mkfs.fat -F 32 "${INSTALL_DISK}1"
 
 # Mount the disks
 mount "${INSTALL_DISK}2" /mnt
-mkdir -p /mnt/efi
-mount "${INSTALL_DISK}1" /mnt/efi
+mkdir -p /mnt/boot
+mount "${INSTALL_DISK}1" /mnt/boot
 
 # Base install + config
 pacstrap /mnt base linux linux-firmware
@@ -35,14 +48,27 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # Now chroot into that bad boy and do STUFF
 
-# Locale will be managed via Ansible
+# Locale will be managed via Ansible, but set temporarily
+arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/London /etc/localtime
+arch-chroot /mnt hwclock --systohc
+arch-chroot /mnt locale-gen
+arch-chroot /mnt echo "LANG=en_GB.UTF-8" > /etc/locale.conf
+arch-chroot /mnt echo "arch" > /etc/hostname
+
+# Now enable the system to boot
 arch-chroot /mnt mkinitcpio -P
 
 # The only tools we really need to run ansible
-arch-chroot /mnt pacman -Sy sudo git vim python efibootmgr glibc grub --noconfirm
+arch-chroot /mnt pacman -S sudo git vim python efibootmgr glibc grub --noconfirm
 
 # Install grub - EFI mode
-arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+
+# Install microcode - just both because who knows
+arch-chroot /mnt pacman -S amd-ucode intel-ucode --noconfirm
+
+# Now enable the system to boot
+arch-chroot /mnt mkinitcpio -P
 
 echo "[+] Install complete"
 echo "[!] YOU NEED TO CHANGE THE ROOT PASSWORD"
