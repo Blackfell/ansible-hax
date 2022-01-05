@@ -59,7 +59,7 @@ arch-chroot /mnt echo "arch" > /etc/hostname
 arch-chroot /mnt mkinitcpio -P
 
 # The only tools we really need to boot and run ansible
-arch-chroot /mnt pacman -Sy sudo git vim python openssh efibootmgr glibc grub amd-ucode intel-ucode dhclient iputils inetutils dhcpd  --noconfirm
+arch-chroot /mnt pacman -Sy sudo git vim python openssh efibootmgr glibc grub amd-ucode intel-ucode dhclient iputils inetutils dhcpcd  --noconfirm
 
 # Make sure networking 'just works' on reboot
 arch-chroot /mnt systemctl enable systemd-networkd
