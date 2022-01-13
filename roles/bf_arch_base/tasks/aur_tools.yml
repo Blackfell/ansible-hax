@@ -2,7 +2,7 @@
   shell: yay --noconfirm -S {{item}}
   with_items: "{{core_aur}}"
   when: core_aur is defined
-  become: yes
+  #become: yes
   become_user: "{{bbvps_users.ansible_user.name}}"
   tags:
     - aur

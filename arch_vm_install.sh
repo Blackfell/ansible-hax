@@ -54,6 +54,7 @@ arch-chroot /mnt hwclock --systohc
 arch-chroot /mnt locale-gen
 arch-chroot /mnt echo "LANG=en_GB.UTF-8" > /etc/locale.conf
 arch-chroot /mnt echo "arch" > /etc/hostname
+arch-chroot /mnt echo "KEYMAP=uk" > /etc/vconsole.conf
 
 # Now enable the system to boot
 arch-chroot /mnt mkinitcpio -P
@@ -64,6 +65,9 @@ arch-chroot /mnt pacman -Sy sudo git vim python openssh efibootmgr glibc grub am
 # Make sure networking 'just works' on reboot
 arch-chroot /mnt systemctl enable systemd-networkd
 arch-chroot /mnt systemctl enable systemd-resolved
+arch-chroot /mnt systemctl enable sshd
+arch-chroot /mnt systemctl enable dhcpcd
+arch-chroot /mnt sed -i "s/^#*PermitRootLogin.+$/PermitRootLogin yes/g" /etc/ssh/sshd_config
 
 # Install grub - EFI mode
 arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB

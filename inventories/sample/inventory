@@ -1,14 +1,17 @@
-
 [VPS]
-# Example: First time running against host, with default root login key
-# bbvps.blackfell.net ansible_ssh_private_key_file=/home/hullet/Documents/Projects/wu-tang-lan/linode_admin@blackfell.net ansible_user=root
+# Example: First time running against host, specifying SSH options directly in inventory
+# myvps.blackfell.net ansible_ssh_private_key_file=~/.ssh/root_key ansible_user=root
 
-# Example: Second run onwards against host, with ansible_user login key
-# bbvps.blackfell.net ansible_ssh_private_key_file=/home/hullet/Documents/Projects/wu-tang-lan/linode_ansible@blackfell.net ansible_user=ansible ssh_args="-p 34522"
+# Example: Second run onwards against host, specifying the new connection info
+# myvps.blackfell.net ansible_ssh_private_key_file=~/.ssh/ansible_key ansible_user=myansible ssh_args='-p 2222'
 
+# Example: Alternative approach - managing SSH options in SSH config file (preferred for me)
+# myvps.blackfell.net ssh_args='-F~/.ssh/config'
 
-# Example: Second run onwards as ansible user, using ssh connection file in ansible.cfg below
-bbvps.ansible  ansible_user=ansible
+[HACKINGVMS]
 
-[ssh_connection]
-ssh_args="-F ~/.ssh/config"
+# Example: First run against a fresh Arch install with no ssh keys or anything yet
+#10.10.60.110	ansible_user=root	
+
+# Example: Second run against a privisioned VM using SSH configuration file
+#10.10.60.110	ssh_args='-F ~/.ssh/config'

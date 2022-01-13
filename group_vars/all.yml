@@ -1,7 +1,10 @@
 ---
 #TODO - remove duplicates - probably...
-#
-########### USERS STUFF ##########
+
+###############################
+######             USERS  STUFF              #####
+###############################
+
 bbvps_users:
   main_user:
     name: blackfell
@@ -13,7 +16,7 @@ bbvps_users:
     append: yes
     # FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
-    password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
+    password: $6$aTMFR2o2W43LY3SQ$JG0W7WMR9zTMX1yBrwOhlkHoH7EAxMlPlc.0se3c0lcNGQN6IivBBeq4J8nK6Eyt6UHLuprFoA/1Jh5rxj9s61
     ssh_key_name: /home/hullet/.ssh/linode@blackfell.net.pub
   ansible_user:
     name: myansible
@@ -25,7 +28,7 @@ bbvps_users:
     append: yes
     #FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
-    password: $6$EAfVHfBkx7qsk6Tq$7x945p94nUUCNsV3wvLhx1e1UK3gtoIlu89coBaDmmBTI5QYK3M6o927NdX7vF/06o.O0OgRWm0PzHi8sDOBR/
+    password: $6$aTMFR2o2W43LY3SQ$JG0W7WMR9zTMX1yBrwOhlkHoH7EAxMlPlc.0se3c0lcNGQN6IivBBeq4J8nK6Eyt6UHLuprFoA/1Jh5rxj9s61
     ssh_key_name: /home/hullet/.ssh/linode_ansible@blackfell.net.pub
 
 timezone: Europe/London
@@ -36,7 +39,9 @@ bb_group: haxxors
 
 hostname: WOPR
 
-############## Host Security & Remoting  #################
+###############################
+####      Host Security & Remoting        ####
+###############################
 
 ssh_max_sessions: 7
 ssh_max_auth_tries: 3
@@ -48,7 +53,9 @@ ssh_use_dns: "no"
 ssh_port: 22
 mosh_port_range: 60000:60010
 
-############### Arch Base Core Tooling ###################
+###############################
+######         ARCH BASE TOOLS          #####
+###############################
 
 base_tools:
     - gcc
@@ -120,7 +127,9 @@ core_aur:
     - vundle
     - gdb-multiarch
 
-############### DESKTOP BASE TOOLS ##################
+###############################
+####       Core Desktop Packages          ####
+###############################
 
 bb_gui_core:
   - xorg-server
@@ -150,7 +159,12 @@ bb_gui_core:
   - acpid
   - blueman
   - bluez-tools
-
+  - open-vm-tools
+  - xf86-video-vmware
+  - xf86-input-vmmouse
+  - mesa
+  - lxappearance
+  - thunar
 bb_gui_tools:
   - atom
   - firefox
@@ -160,7 +174,9 @@ bb_gui_tools:
   - mousepad
   - zathura
 
-############ i3 VM Tools #######################
+###############################
+######          i3 WM Packages            #####
+###############################
 
 bb_i3:
   - rxvt-unicode
@@ -179,10 +195,11 @@ bb_i3:
   - network-manager-applet
   - dunst
   - flameshot
-
+  - firejail
+  - firefox
 bb_i3_aur:
   - termite
-  - pa-applet-git
+  #- pa-applet-git
   - siji-ng
   - polybar
   - i3exit
@@ -190,8 +207,27 @@ bb_i3_aur:
   - clipit
   - matcha-gtk-theme
   - ttf-unifont
+  - plymouth
+  - linux-tools
 
-############ Headless Testing Tools  ################
+###############################
+######         Gnome Packages           #####
+###############################
+
+bb_gnome:
+  - gnome
+  - gnome-tweaks
+  - latte-dock
+bb_gnome_aur:
+  - tela-circle-icon-theme-git
+  - orchis-theme-git
+  - arc-gtk-theme
+
+###############################
+######         Testing Packages           #####
+###############################
+
+current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
 
 bb_recon:
   - dnsrecon
@@ -207,7 +243,6 @@ bb_recon:
   - amass
   - crackmapexec
   - wafw00f
-
 bb_enum:
   - blackarch/wfuzz
   - blackarch/ffuf
@@ -219,7 +254,6 @@ bb_enum:
   - blackarch/rustscan
   - blackarch/wpscan
   - blackarch/netdiscover
-
 bb_vuln:
   - blackarch/exploitdb
   - blackarch/snmpcheck
@@ -231,15 +265,6 @@ bb_vuln:
   - net-snmp
   - blackarch/pwntools
   - blackarch/smbmap
-
-
-# TODO - Include SNMPBLOW?
-# apt-get install tftpd-hpa
-# mkdir /tftpboot && chmod 777 /tftpboot
-# apt-get install libnet-snmp-perl libnet-rawip-perl
-# wget http://www.willhackforsushi.com/sec660/snmpblow.pl
-
-
 bb_exploit:
   - blackarch/sqlmap
   - afl
@@ -257,13 +282,11 @@ bb_exploit:
   - blackarch/frida
   - blackarch/dwarf
   - blackarch/binwalk
-
 bb_post:
   - linenum
   - powersploit
   - evil-winrm
   - pwncat-caleb
-
 bb_general:
   - proxychains
   - curl
@@ -275,7 +298,6 @@ bb_general:
   - go-tools
   - unfurl
   - blackarch/john
-
 # Tools from Git  - Name and repo required.
 bb_git:
   - name: "python_widgets"
@@ -292,23 +314,29 @@ bb_git:
     install_command: "echo nothing"
   - name: "tomnomnom hacks"
     repo: "https://github.com/tomnomnom/hacks"
-
+  - name: "john"
+    repo: "https://github.com/openwall/john"
+    add_git_dir_to_path: false    # Because it's in run, not in the git root
+    install_command: "cd /opt/john/src && ./configure && make -s clean && make -sj$(nproc)"
 #TODO these?
 #  - seatbelt
 #  - kxss
 #- LazyfuzZ
-
+# TODO - Include SNMPBLOW?
+# apt-get install tftpd-hpa
+# mkdir /tftpboot && chmod 777 /tftpboot
+# apt-get install libnet-snmp-perl libnet-rawip-perl
+# wget http://www.willhackforsushi.com/sec660/snmpblow.pl
 bb_rust:
   - feroxbuster
-
 bb_go_get:
   - github.com/tomnomnom/gron
   - github.com/tomnomnom/httprobe
   - github.com/tomnomnom/gf
 
-current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
-
-########## GUI Testing TOOLS  ##########
+###############################
+####       GUI   Testing Packages            ####
+###############################
 
 bb_gui_pentest:
   - blackarch/burpsuite
@@ -333,12 +361,35 @@ bb_gui_pentest:
   - blackarch/gnuradio
   - blackarch/yersinia
   - blackarch/angr-management
-
-
-
-    #TODO
-    # Pro tooling
-    # # Git tools
-    # gem install one_gadget
-
 bb_gui_pentest_aur:
+
+#TODO - Add more tooling
+# Pro tooling
+# # Git tools
+# gem install one_gadget
+# Obsidian
+#
+
+###############################
+####        OT   Testing Packages            ####
+###############################
+
+bb_ot:
+  - git
+  - perl
+  - gem
+
+bb_ot_aur:
+
+# Tools from Git  - Name and repo required.
+bb_ot_git:
+  - name: "python_widgets"
+    repo: "https://www.github.com/blackfell/python_widgets"
+    add_git_dir_to_path: true
+    install_command: "python -m pip install -r ./requirements.txt"
+  - name: "snmpblow"
+    repo: "https://github.com/grigorescu/snmpblow"
+    add_git_dir_to_path: true
+    install_command: "echo nothing"
+  - name: "tomnomnom hacks"
+    repo: "https://github.com/tomnomnom/hacks"

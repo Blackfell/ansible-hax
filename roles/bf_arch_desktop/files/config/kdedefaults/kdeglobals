@@ -1,0 +1,13 @@
+[General]
+ColorScheme=Adapta
+Name[en_GB]=Breeze Light
+Name=Breeze Light
+shadeSortColumn=true
+widgetStyle=Breeze
+
+
+[Icons]
+Theme=Papirus-Dark
+
+[KDE]
+widgetStyle=kvantum

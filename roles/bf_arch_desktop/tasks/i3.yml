@@ -1,14 +1,11 @@
 ---
-#dependencies:
-#  - role: desktop_base
-
-- name: Install Packages
+- name: Install i3 Packages
   pacman: name={{ bb_i3 }} state=present
   tags:
           - gui
           - i3
 
-- name: Install AUR tools
+- name: Install i3 AUR tools
   shell: yay --noconfirm -S {{item}}
   with_items: "{{bb_i3_aur}}"
   when: bb_i3_aur is defined
@@ -16,6 +13,7 @@
   become_user: "{{bbvps_users.ansible_user.name}}"
   tags:
           - aur
+          - i3
 
 - name: Set Config for each user
   copy:
@@ -27,6 +25,37 @@
   with_dict: "{{ bbvps_users }}"
   tags:
     - i3
+
+- name: Bootstrap dunst theming - mkdir
+  command: mkdir -p /home/{{ item.value.name}}/.cache/wal/
+  become_user: "{{ item.value.name}}"
+  become: yes
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - i3
+    - dunst
+
+- name: Bootstrap dunst theming - touch file
+  command: touch /home/{{ item.value.name}}/.cache/wal/dunstrc
+  become_user: "{{ item.value.name}}"
+  become: yes
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - i3
+    - dunst
+
+- name: Automate dunst theming
+  file:
+    src: /home/{{ item.value.name}}/.cache/wal/dunstrc
+    dest: /home/{{ item.value.name}}/.config/dunst/dunstrc
+    state: link
+    mode: 0744
+    owner: "{{item.value.name }}"
+    group: "{{item.value.group }}"
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - i3
+    - dunst
 
 - name: Configure Pywal
   copy:
@@ -57,3 +86,12 @@
     - conky_bf
   tags:
     - i3
+
+- name: Set X11 keyboard layout per-user
+  shell: localectl set-x11-keymap gb
+  become: yes
+  #become_user: "{{item.value.name}}"
+  #with_dict: "{{bbvps_users}}"
+  tags:
+          - aur
+          - i3

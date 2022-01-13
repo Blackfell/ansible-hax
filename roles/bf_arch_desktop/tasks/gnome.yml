@@ -1,0 +1,64 @@
+---
+- name: Install Gnome Packages
+  pacman: name={{ bb_gnome }} state=present
+  tags:
+          - gui
+          - gnome
+
+- name: Install Gnome AUR tools
+  shell: yay --noconfirm -S {{item}}
+  with_items: "{{bb_gnome_aur}}"
+  when: bb_gnome_aur is defined
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+          - aur
+          - gnome
+
+- name: Install Gnome configurator script
+  copy:
+    src: gnome_config.sh
+    dest: /usr/bin/
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - gnome
+
+# gnome config now applied by autostart scripts.
+
+#- name: Configure Gnome  GTK Theme
+#  shell: "gsettings set org.gnome.desktop.interface gtk-theme \"Orchis-Grey\""
+#  become: yes
+#  become_user: "{{item.value.name}}"
+#  with_dict: "{{bbvps_users}}"
+#
+#- name: Configure Gnome  WM Theme
+#  shell: gsettings set org.gnome.desktop.wm.preferences theme "Orchis-grey"
+#  become: yes
+#  become_user: "{{item.value.name}}"
+#  with_dict: "{{bbvps_users}}"
+#
+#- name: Configure Gnome  Backgorund Image
+#  shell: "gsettings set org.gnome.desktop.background picture-uri \"file:///usr/share/backgrounds/BFBackground.png\" && echo 'DONE' >> /tmp/gnome_status.txt"
+#  become: yes
+#  become_user: "{{item.value.name}}"
+#  with_dict: "{{bbvps_users}}"
+#
+#- name: Configure Gnome  Icons
+#  shell: "gsettings set org.gnome.desktop.interface icon-theme \"Tela-circle\""
+#  become: yes
+#  become_user: "{{item.value.name}}"
+#  with_dict: "{{bbvps_users}}"
+#
+#- name: Configure Gnome  User Theme
+#  shell: "gsettings set org.gnome.shell.extensions.user-theme name \"Orchis-grey\""
+#  become: yes
+#  become_user: "{{item.value.name}}"
+#  with_dict: "{{bbvps_users}}"
+#
+#- name: Configure Gnome  User Theme - Enabled
+#  shell:   "gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com"
+#  become: yes
+#  become_user: "{{item.value.name}}"
+#  with_dict: "{{bbvps_users}}"

@@ -26,7 +26,7 @@
 #      line: "TCPKeepAlive no"
     - regexp: "^#?UseDNS"
       line: "UseDNS no"
-    - regexp: "^#?Port"
+    - regexp: "^#{0,1}?Port"
       line: "Port {{ssh_port}}"
 
 - name: Restart sshd

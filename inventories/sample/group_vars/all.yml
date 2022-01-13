@@ -9,7 +9,7 @@ bbvps_users:
     group: blackfell
     shell: /bin/zsh
     create_home: true
-    email: linode@blackfell.net
+    email: info@blackfell.net
     update_password: on_create
     groups: wheel,users,audio,storage
     append: yes
@@ -24,9 +24,9 @@ bbvps_users:
     group: ansible
     shell: /bin/bash
     create_home: true
-    email: linode@blackfell.net
+    email: info@blackfell.net
     update_password: on_create
     groups: wheel,users,audio,storage
     append: yes
-    password: 
+    password:
     ssh_key_name: ansible_key.pub

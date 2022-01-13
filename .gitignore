@@ -1,2 +1,4 @@
 inventories/my_inventory/
 .vagrant
+roles/bf_arch_base/files/*.pub
+files/*.pub

@@ -12,19 +12,7 @@
   tags:
           - gui
 
-#- name: Configure Grub Directory
-#  file:
-#    path: /usr/share/grub/themes/blackfell/
-#    state: directory
-#    mode: '0755'
-#    owner: root
-#    group: root
-#  become: true
-#  tags:
-#          - gui
-#          - grub
-
-- name: Configure Grub theme directory
+- name: Configure Grub theme directory (TODO - Fix)
   copy:
     src: grub_theme
     dest: /usr/share/grub/themes/blackfell
@@ -45,14 +33,16 @@
       line: "GRUB_COLOR_NORMAL=\"light-gray/black\""
     - regexp: "^#{0,1}GRUB_COLOR_HIGHLIGHT=.*"
       line: "GRUB_COLOR_HIGHLIGHT=\"green/black\""
-    - regexp: "^#{0,1}GRUB_THEME=.*"
-      line: "GRUB_THEME=\"/usr/share/grub/themes/blackfell/theme.txt\""
+    #- regexp: "^#{0,1}GRUB_THEME=.*"
+    #  line: "GRUB_THEME=\"/usr/share/grub/themes/blackfell/theme.txt\""
     - regexp: "^#{0,1}GRUB_ENABLE_CRYPTODISK=.*"
       line: "GRUB_ENABLE_CRYPTODISK=y"
     - regexp: "^#{0,1}GRUB_DISABLE_SUBMENU=.*"
       line: "GRUB_DISABLE_SUBMENU=y"
     - regexp: "^#{0,1}GRUB_DISABLE_OS_PROBER=.*"
       line: "GRUB_DISABLE_OS_PROBER=false"
+    #- regexp: "^#{0,1}GRUB_GFXMODE=.*"
+    #  line: "GRUB_GFXMODE=1280x800x32,auto"
   tags:
     - gui
     - grub
@@ -76,6 +66,7 @@
   copy:
     src: lightdm_vm_screens.sh
     dest: /usr/bin/
+    mode: 0755
   become: true
   tags:
     - gui

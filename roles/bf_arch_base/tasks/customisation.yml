@@ -1,23 +1,11 @@
 ---
 - name: Install oh my zsh for each user so they can customise later
-  shell: "if [ ! -d ~/.oh-my-zsh/ ]; then /usr/share/oh-my-zsh/tools/install.sh; fi"
+  shell: "if [ ! -d ~/.oh-my-zsh/ ]; then echo -e 'y\n' | /usr/share/oh-my-zsh/tools/install.sh; fi"
   become: yes
   become_user: "{{ item.value.name }}"
   with_dict: "{{ bbvps_users }}"
   tags:
     - customisation
-
-#- name: Set Zsh theme to agnoster for each user
-#  lineinfile:
-#    dest: ~/.zshrc
-#    regexp: ^ZSH_THEME"
-#    line: "ZSH_THEME=agnoster"
-#    state: present
-#  become: yes
-#  become_user: "{{ item.value.name }}"
-#  with_dict: "{{ bbvps_users }}"
-#  tags:
-#    - customisation
 
 - name: Set global Zsh theme 2 - set theme for each user
   copy:
@@ -45,7 +33,7 @@
     - customisation
 
 - name: Configure oh my zsh for root
-  shell: "if [ ! -d /root/.oh-my-zsh/ ]; then /usr/share/oh-my-zsh/tools/install.sh; fi"
+  shell: "if [ ! -d /root/.oh-my-zsh/ ]; then echo -e 'y\n' | /usr/share/oh-my-zsh/tools/install.sh; fi"
   become: yes
   become_user: root
   tags:

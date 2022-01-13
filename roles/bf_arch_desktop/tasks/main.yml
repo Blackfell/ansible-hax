@@ -11,21 +11,6 @@
           - gui
           - tools
 
-# TODO - separate per-DE?
-- name: Set gtk-2 theme
-  copy:
-          src: gtkrc-2.0
-          dest: /usr/share/gtk-2.0/
-  tags:
-          - gui
-
-- name: Set gtk-3 theme
-  copy:
-          src: settings.ini
-          dest: /usr/share/gtk-3.0/
-  tags:
-          - gui
-
 - name: Create backgrounds directory if not existing
   file:
     path: "/usr/share/backgrounds"
@@ -48,7 +33,7 @@
 - name: Configure Fonts for Powerline
   include: powerline_fonts.yml
 
-- name: Enable ACPI, NetworkManager & Bluetooth Services
+- name: Enable ACPI, NetworkManager vmtools & Bluetooth Services
   service:
     name: "{{ item }}"
     state: started
@@ -57,5 +42,21 @@
     - acpid
     - bluetooth
     - NetworkManager
+    - vmtoolsd
+    - vmware-vmblock-fuse
 
-- include: i3.yml
+- name: Create Firefox Profile Directory
+  file:
+    path: "/home/{{item.value.name}}/.mozilla/firefox/Testing"
+    state: directory
+    mode: '0700'
+    owner: "{{item.value.name}}"
+    group: "{{item.value.group}}"
+  become: true
+  with_dict: "{{ bbvps_users }}"
+
+- name: Install Gnome
+  include: gnome.yml
+
+- name: Install and configure i3 WM
+  include: i3.yml

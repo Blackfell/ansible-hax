@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Blackfell Gnome Configurator
+GenericName=Configuration runonce for Gnome
+Comment=Configures Gnome on your first login, using a script.
+Exec=/usr/bin/gnome_config.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true

@@ -1,6 +1,6 @@
 ---
 
-- name: Configure Powerline Directory 
+- name: Configure Powerline Directory
   file:
     path: "/opt/{{ item }}"
     state: directory
@@ -15,13 +15,6 @@
           - gui
           - grub
 
-- name: Configure Grub
-  copy:
-          src: grub_theme.txt
-          dest: /usr/share/grub/themes/blackfell/theme.txt
-  tags:
-          - gui
-          - grub
 - name: Clone or update fonts repo
   git: repo="https://github.com/powerline/fonts.git" dest=/opt/fonts accept_hostkey=yes update=yes
   become: yes

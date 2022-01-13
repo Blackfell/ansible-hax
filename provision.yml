@@ -1,0 +1,50 @@
+---
+- hosts: HACKINGVMS
+  become: yes
+  tasks:
+    - name: Update all packages
+      import_tasks: tasks/arch_update.yml
+      tags:
+        - update
+
+    - name: Reboot in case of Kernel update
+      import_tasks: tasks/reboot.yml
+      tags:
+        - reboot
+
+    - name: Arch base configuration
+      include_role:
+        name: bf_arch_base
+
+    - name: Desktop Environment (VM)
+      include_role:
+        name: bf_arch_desktop
+
+    - name: Configure CLI testing stuff
+      include_role:
+        name: bf_arch_testing_headless
+
+    - name: Configure graphical testing stuff
+      include_role:
+        name: bf_arch_testing_desktop
+
+- hosts: VPS
+  become: yes
+  tasks:
+    - name: Update all packages
+      import_tasks: tasks/arch_update.yml
+      tags:
+        - update
+
+    - name: Reboot in case of Kernel update
+      import_tasks: tasks/reboot.yml
+      tags:
+        - reboot
+
+    - name: Arch base configuration
+      include_role:
+        name: bf_arch_base
+
+    - name: Configure CLI testing stuff
+      include_role:
+        name: bf_arch_testing_headless

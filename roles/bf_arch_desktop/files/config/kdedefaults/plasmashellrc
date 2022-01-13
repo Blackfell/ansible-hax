@@ -1,0 +1,33 @@
+[KFileDialog Settings]
+Recent Files[$e]=BFBackground.png,file:///usr/share/backgrounds/BFBackground.png
+Recent URLs[$e]=file:///usr/share/backgrounds/,file:///usr/share/
+detailViewIconSize=16
+
+[PlasmaViews][Panel 2]
+alignment=2
+
+[PlasmaViews][Panel 2][Defaults]
+minLength=1068
+thickness=44
+
+[PlasmaViews][Panel 2][Horizontal1918]
+minLength=1068
+thickness=74
+
+[PlasmaViews][Panel 2][Vertical977]
+thickness=44
+
+[PlasmaViews][Panel 24][Defaults]
+thickness=20
+
+[PlasmaViews][Panel 24][Horizontal1918]
+thickness=44
+
+[PlasmaViews][Panel 24][Vertical977]
+thickness=20
+
+[ScreenConnectors]
+0=Virtual-1
+
+[Updates]
+performed=/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/obsolete_kickoffrc.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/klipper_clear_config.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/unlock_widgets.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/move_desktop_layout_config.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_rename_timezonedisplay_key.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/systemloadviewer_systemmonitor.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/containmentactions_middlebutton.js,/usr/share/plasma/shells/org.kde.plasma.desktop/contents/updates/maintain_existing_desktop_icon_sizes.js

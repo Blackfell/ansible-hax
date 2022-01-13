@@ -24,7 +24,7 @@
       include_role:
         name: bf_arch_testing_desktop
 
-    - name: Update all packages
+    - name: Reboot incase there's been some weird update
       import_tasks: tasks/reboot.yml
       tags:
         - reboot

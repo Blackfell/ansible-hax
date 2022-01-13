@@ -11,4 +11,4 @@ while getopts dc:r option; do
   esac
 done
 
-ansible-playbook -i inventories/my_inventory/inventory bf.yml -K -b $REBOOT | tee playbook.log
+ansible-playbook -i inventories/my_inventory/inventory provision.yml -K -b $REBOOT | tee playbook.log

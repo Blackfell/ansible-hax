@@ -1,0 +1,13 @@
+[Unit]
+Description=Dunst notification daemon
+Documentation=man:dunst(1)
+After=user.target
+
+[Service]
+Type=dbus
+# Could have been simple type
+ExecStart=/usr/bin/dunst
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

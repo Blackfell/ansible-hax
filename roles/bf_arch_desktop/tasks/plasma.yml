@@ -1,0 +1,38 @@
+---
+
+##### TODO - Configuration not really working without user interaction #####
+
+- name: Install Plasma Packages
+  pacman: name={{ bb_plasma }} state=present
+  tags:
+          - gui
+          - plasma
+
+- name: Install Plasma AUR tools
+  shell: yay --noconfirm -S {{item}}
+  with_items: "{{bb_plasma_aur}}"
+  when: bb_plasma_aur is defined
+  become: yes
+  become_user: "{{bbvps_users.ansible_user.name}}"
+  tags:
+          - aur
+          - plasma
+
+#- name: Apply Plasma Themes
+#  shell: lookandfeeltool -a com.github.varlesh.adapta
+#  become: yes
+#  become_user: "{{ item.value.name }}"
+#  with_dict: "{{ bbvps_users }}"
+#  tags:
+#          - aur
+#          - plasma
+
+
+- name: Apply Plasma Config again
+  shell: /bin/cp -rf ~/.config/kdedefaults/* ~/.config
+  become: yes
+  become_user: "{{ item.value.name }}"
+  with_dict: "{{ bbvps_users }}"
+  tags:
+          - aur
+          - plasma

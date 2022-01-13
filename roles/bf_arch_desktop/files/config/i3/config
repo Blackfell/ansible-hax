@@ -238,13 +238,12 @@ bindsym $mod+Ctrl+d exec --no-startup-id rofi -show keys
 bindsym $mod+Shift+d exec --no-startup-id rofi -no-lazy-grab -show drun -theme "~/.config/rofi/launcher.rasi"
 
 # Favourite Applications
-bindsym $mod+F2 exec prime-run vmware
 bindsym $mod+F3 exec firejail firefox
-bindsym $mod+F4 exec firejail chromium
-bindsym $mod+F5 exec firejail --whitelist=~/SamPhoneDocs/Calendar/ thunderbird
-bindsym $mod+F6 exec firejail --ignore=novideo discord
-bindsym $mod+F7 exec /usr/bin/youtube-music
-bindsym $mod+F8 exec pcmanfm  #'mocp'
+bindsym $mod+F4 exec burpsuite
+bindsym $mod+F5 exec zapproxy
+bindsym $mod+F6 exec firejail firefox --directory ~/.mozilla/firefox/Testing
+bindsym $mod+F7 exec keepassxcT
+bindsym $mod+F8 exec pcmanfm
 
 ##### Desktop appearance and tools #####
 #
@@ -378,7 +377,7 @@ mode "$mode_gaps_outer" {
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id sleep 1; nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit
@@ -402,8 +401,10 @@ exec_always xinput set-prop "Synaptics TM3044-002" "libinput Natural Scrolling E
 exec_always nvidia-settings --load-config-only
 exec_always openrazer-daemon -Fv
 
+# VM Stuff
 # Resize VMs in case they get weird resolutions
-exec_always xrandr --output Virtual-1 --auto
+exec_always xrandr --output Virtual-1 --auto ||  xrandr --output Virtual1 --auto
+exec_always --no-startup-id /usr/bin/vmware-user-suid-wrapper
 
 ####################################
 ##### Weird desk monitor stuff #####
@@ -420,5 +421,4 @@ bindsym $mod+Crtl+i+o exec xrandr --output DP-1 --off --output HDMI-1-0 --auto -
 # Bring the display back!
 bindsym $mod+Shift+Ctrl+r exec xrandr --output eDP-1 --auto --primary || xrandr --output eDP1 --auto --primary
 # For VMs - Resize VM display and make primary
-bindsym $mod+Shift+v exec xrandr --output Virtual-1 --auto --primary
-
+bindsym $mod+Shift+v exec xrandr --output Virtual-1 --auto --primary || xrandr --output Virtual1 --auto --primary
