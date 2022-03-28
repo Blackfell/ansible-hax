@@ -241,8 +241,8 @@ bindsym $mod+Shift+d exec --no-startup-id rofi -no-lazy-grab -show drun -theme "
 bindsym $mod+F3 exec firejail firefox
 bindsym $mod+F4 exec burpsuite
 bindsym $mod+F5 exec zapproxy
-bindsym $mod+F6 exec firejail firefox --directory ~/.mozilla/firefox/Testing
-bindsym $mod+F7 exec keepassxcT
+bindsym $mod+F6 exec firejail --whitelist=~/Blackfell/transfer firefox -P Testing 
+bindsym $mod+F7 exec keepassxc
 bindsym $mod+F8 exec pcmanfm
 
 ##### Desktop appearance and tools #####
@@ -253,11 +253,8 @@ bindsym $mod+c exec --no-startup-id killall conky || /usr/bin/start_conky_bf
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 
 # Various Printscreen options
-bindsym Print exec --no-startup-id flameshot gui -p ~/Pictures/screenshots
-bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
-bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
-bindsym $mod+Ctrl+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
-bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+bindsym $mod+Print exec --no-startup-id flameshot gui -p ~/Pictures/screenshots
+bindsym Print exec --no-startup-id flameshot gui -c
 
 ##### Session stuff #####
 #
@@ -379,7 +376,7 @@ mode "$mode_gaps_outer" {
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id sleep 1; nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
+# exec --no-startup-id xfce4-power-manager # Doesn't work in VMWARE
 exec --no-startup-id clipit
 exec --no-startup-id start_conky_bf
 exec_always --no-startup-id ff-theme-util
@@ -410,15 +407,13 @@ exec_always --no-startup-id /usr/bin/vmware-user-suid-wrapper
 ##### Weird desk monitor stuff #####
 ####################################
 
-# Main Monitor only
-bindsym $mod+Shift+i exec xrandr --output DP-1 --off --output HDMI-1-0 --off  --output eDP-1 --auto --primary
-# Monitors - both
-bindsym $mod+Ctrl+i exec xrandr --output DP-1 --mode 1920x1080 --pos 0x0 --output HDMI-1-0 --mode 1920x1080 --pos 1920x0 --primary  --output eDP-1 --off || xrandr --output DP-1 --auto --pos 0x0 --output HDMI-1-0 --auto --pos 1920x0 --primary  --output eDP-1 --off
-# Monitor recovery option - try and recover messed up monitorg
-bindsym $mod+Ctrl+Shift+i exec xrandr --output DP-1 --auto --pos 0x0 --output HDMI-1-0 --auto --pos 1920x0 --primary  --output eDP-1 --off || xrandr --output DP-1 --auto --pos 0x0 --output HDMI-1-0 --auto --pos 1920x0 --primary  --output eDP-1 --off
-# Just HDMI monitor, no eDP
-bindsym $mod+Crtl+i+o exec xrandr --output DP-1 --off --output HDMI-1-0 --auto --pos 0x0 --primary --output eDP-1 --off
-# Bring the display back!
-bindsym $mod+Shift+Ctrl+r exec xrandr --output eDP-1 --auto --primary || xrandr --output eDP1 --auto --primary
+# Both Screend
+bindsym $mod+i exec $HOME/.config/i3/monitors.sh -b
+# Laptop only
+bindsym $mod+Shift+i exec $HOME/.config/i3/monitors.sh -l
+# Just primary monitor
+bindsym $mod+Ctrl+i exec $HOME/.config/i3/monitors.sh -m
+# Just secondary (reader) monitor
+bindsym $mod+Ctrl+Shift+i exec $HOME/.config/i3/monitors.sh -u
 # For VMs - Resize VM display and make primary
-bindsym $mod+Shift+v exec xrandr --output Virtual-1 --auto --primary || xrandr --output Virtual1 --auto --primary
+bindsym $mod+Shift+v exec $HOME/.config/i3/monitors.sh -v

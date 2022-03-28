@@ -65,7 +65,7 @@ need **keys**.
 To be prepared for this, place any public SSH keys required for your ansible,
 main and other user accounts in *files/* or another suitable
 location so that ansible can copy them over for you. The names should match
-those in *group_vars/all.yml* for each user account. 
+those in *group_vars/all.yml* for each user account.
 
 ### Pick your roles
 
@@ -112,3 +112,13 @@ Using this approach,  you can just configure the inventory to use your ssh
 config file from the outset (see the provided examples in that file).
 
 Not too bad eh?
+
+# Blackarch won't install
+
+You probably have a comms issue with `pgp.mit.edu`, if that's not it, try:
+
+```
+rm -rf /etc/pacman.d/gnupg
+pacman-key --populate
+pacman-key --update
+```

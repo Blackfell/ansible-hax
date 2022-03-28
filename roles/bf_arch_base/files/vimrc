@@ -49,3 +49,11 @@ nmap <Leader>b :!echo <C-R><C-W> \| base64 -d<CR>
 nmap <Leader>g :tabnew\|read !grep -Hnr '<C-R><C-W>'<CR>
 nmap <Leader>s :%!sort -u --version-sort<CR>
 nmap <Leader>W :w !sudo tee % > /dev/null
+
+# easier split navigation with Ctrl - hjkl
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+set splitbelow
+set splitright

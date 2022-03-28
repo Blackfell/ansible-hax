@@ -107,6 +107,7 @@ core_tools:
     - diff-so-fancy
     - vim-airline
     - vim-airline-themes
+    - p7zip
 core_networking:
     - net-tools
     - bind-tools
@@ -119,6 +120,9 @@ core_networking:
     - openbsd-netcat
     - iputils
     - iw
+    - openvpn
+    - samba
+    - traceroute
 core_aur:
     - bash-pipes
     - oh-my-zsh-git
@@ -126,6 +130,8 @@ core_aur:
     - ttf-meslo-nerd-font-powerlevel10k
     - vundle
     - gdb-multiarch
+    - strace
+    - pa-applet-git
 
 ###############################
 ####       Core Desktop Packages          ####
@@ -165,6 +171,7 @@ bb_gui_core:
   - mesa
   - lxappearance
   - thunar
+  - jython
 bb_gui_tools:
   - atom
   - firefox
@@ -173,6 +180,10 @@ bb_gui_tools:
   - syncthing
   - mousepad
   - zathura
+  - zathura-djvu
+  - zathura-ps
+  - zathura-pdf-poppler
+  - vlc
 
 ###############################
 ######          i3 WM Packages            #####
@@ -200,7 +211,7 @@ bb_i3:
 bb_i3_aur:
   - termite
   #- pa-applet-git
-  - siji-ng
+  - siji-ttf
   - polybar
   - i3exit
   - pywal-git
@@ -231,7 +242,7 @@ current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
 
 bb_recon:
   - dnsrecon
-  - recon-ng
+  - blackarch/recon-ng
   - subfinder
   - dnsx
   - nmap
@@ -243,6 +254,7 @@ bb_recon:
   - amass
   - crackmapexec
   - wafw00f
+  - blackarch/theharvester
 bb_enum:
   - blackarch/wfuzz
   - blackarch/ffuf
@@ -254,6 +266,9 @@ bb_enum:
   - blackarch/rustscan
   - blackarch/wpscan
   - blackarch/netdiscover
+  - nfs-utils
+  - blackarch/kerbrute
+  - blackarch/perl-image-exiftool
 bb_vuln:
   - blackarch/exploitdb
   - blackarch/snmpcheck
@@ -274,6 +289,7 @@ bb_exploit:
   - blackarch/empire
   - gdb
   - blackarch/gef
+  - blackarch/pwndbg
   - blackarch/thc-ipv6
   - blackarch/smbexec
   - blackarch/android-apktool
@@ -282,11 +298,20 @@ bb_exploit:
   - blackarch/frida
   - blackarch/dwarf
   - blackarch/binwalk
+  - blackarch/checksec
 bb_post:
   - linenum
   - powersploit
   - evil-winrm
   - pwncat-caleb
+  - blackarch/windows-exploit-suggester 
+  - blackarch/linux-exploit-suggester.sh
+  - mariadb
+  - blackarch/peass
+  - blackarch/powersploit
+  - blackarch/nishang
+  - blackarch/bloodhound
+  - blackarch/bloodhound-python
 bb_general:
   - proxychains
   - curl
@@ -298,6 +323,9 @@ bb_general:
   - go-tools
   - unfurl
   - blackarch/john
+  - blackarch/hashcat
+  - blackarch/hashcat-utils
+  - dotnet-runtime
 # Tools from Git  - Name and repo required.
 bb_git:
   - name: "python_widgets"
@@ -318,6 +346,13 @@ bb_git:
     repo: "https://github.com/openwall/john"
     add_git_dir_to_path: false    # Because it's in run, not in the git root
     install_command: "cd /opt/john/src && ./configure && make -s clean && make -sj$(nproc)"
+  - name: "peass-ng"
+    repo: "https://github.com/carlospolop/PEASS-ng"
+  - name: "seatbelt"
+    repo: "https://github.com/GhostPack/Seatbelt"
+  - name: "windows CVEs 1"
+    repo: "https://github.com/SecWiki/windows-kernel-exploits"
+
 #TODO these?
 #  - seatbelt
 #  - kxss
@@ -353,6 +388,7 @@ bb_gui_pentest:
   - blackarch/ghidra
   - blackarch/r2ghidra
   - blackarch/ollydbg
+  - blackarch/x64dbg
   - keepassxc
   - blackarch/veracrypt
   - pulseview
@@ -361,7 +397,11 @@ bb_gui_pentest:
   - blackarch/gnuradio
   - blackarch/yersinia
   - blackarch/angr-management
+  - jdk11-openjdk
+  - libreoffice-still
 bb_gui_pentest_aur:
+  - rappel-git
+  - saleae-logic2
 
 #TODO - Add more tooling
 # Pro tooling
