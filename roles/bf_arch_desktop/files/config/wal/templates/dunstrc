@@ -36,8 +36,8 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = {background}}
-    foreground = {foreground}
+    background = {{background}}
+    foreground = {{foreground}}
     timeout = 5
 
 [urgency_normal]

@@ -17,7 +17,7 @@ bbvps_users:
     # FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
     password: $6$aTMFR2o2W43LY3SQ$JG0W7WMR9zTMX1yBrwOhlkHoH7EAxMlPlc.0se3c0lcNGQN6IivBBeq4J8nK6Eyt6UHLuprFoA/1Jh5rxj9s61
-    ssh_key_name: /home/hullet/.ssh/linode@blackfell.net.pub
+    ssh_key_name: user_key.pub
   ansible_user:
     name: myansible
     group: ansible
@@ -29,7 +29,7 @@ bbvps_users:
     #FAKE PASSWORDS!!! Create with
     # python -c 'import crypt; print(crypt.crypt("PLAINTEXT PASSWORD", crypt.mksalt()))'
     password: $6$aTMFR2o2W43LY3SQ$JG0W7WMR9zTMX1yBrwOhlkHoH7EAxMlPlc.0se3c0lcNGQN6IivBBeq4J8nK6Eyt6UHLuprFoA/1Jh5rxj9s61
-    ssh_key_name: /home/hullet/.ssh/linode_ansible@blackfell.net.pub
+    ssh_key_name: ansible_key.pub
 
 timezone: Europe/London
 locale: en_GB.UTF-8
@@ -65,6 +65,8 @@ base_tools:
     - make
     - automake
     - binutils
+    - acpid
+    - acpi
 core_tools:
     - git
     - bash
@@ -108,6 +110,12 @@ core_tools:
     - vim-airline
     - vim-airline-themes
     - p7zip
+    - apparmour
+    - rtorrent
+    - bzip2
+    - intel-ucode
+    - amd-ucode
+    - keyutils
 core_networking:
     - net-tools
     - bind-tools
@@ -122,7 +130,9 @@ core_networking:
     - iw
     - openvpn
     - samba
-    - traceroute
+    - traceroutea
+    - cifs-utils
+    - exfat-utils
 core_aur:
     - bash-pipes
     - oh-my-zsh-git
@@ -158,6 +168,7 @@ bb_gui_core:
   - usbutils
   - alsa
   - pulseaudio
+  - ffmpeg
   - pavucontrol
   - lightdm
   - lightdm-slick-greeter
@@ -184,6 +195,7 @@ bb_gui_tools:
   - zathura-ps
   - zathura-pdf-poppler
   - vlc
+  - freerdp
 
 ###############################
 ######          i3 WM Packages            #####
@@ -196,7 +208,7 @@ bb_i3:
   - pcmanfm
   - gtk3
   - conky
-  - compton
+  - picom
   - i3-gaps
   - i3lock
   - xfce4-power-manager
@@ -255,6 +267,7 @@ bb_recon:
   - crackmapexec
   - wafw00f
   - blackarch/theharvester
+  - blackarch/python-shodan
 bb_enum:
   - blackarch/wfuzz
   - blackarch/ffuf
@@ -326,6 +339,7 @@ bb_general:
   - blackarch/hashcat
   - blackarch/hashcat-utils
   - dotnet-runtime
+  - veracrypt
 # Tools from Git  - Name and repo required.
 bb_git:
   - name: "python_widgets"
@@ -364,6 +378,7 @@ bb_git:
 # wget http://www.willhackforsushi.com/sec660/snmpblow.pl
 bb_rust:
   - feroxbuster
+  - nrich
 bb_go_get:
   - github.com/tomnomnom/gron
   - github.com/tomnomnom/httprobe
@@ -390,7 +405,6 @@ bb_gui_pentest:
   - blackarch/ollydbg
   - blackarch/x64dbg
   - keepassxc
-  - blackarch/veracrypt
   - pulseview
   - blackarch/winexe
   - blackarch/arduino
@@ -418,6 +432,8 @@ bb_ot:
   - git
   - perl
   - gem
+  - arduino
+
 
 bb_ot_aur:
 
@@ -433,3 +449,56 @@ bb_ot_git:
     install_command: "echo nothing"
   - name: "tomnomnom hacks"
     repo: "https://github.com/tomnomnom/hacks"
+  - name: "nrich"
+    repo: "https://gitlab.com/shodan-public/nrich"
+    install_command: "cargo install --root /opt/cargo --path ."
+
+
+
+########################################
+########     HOST Packages     #########
+########################################
+
+
+bb_host_core:
+  - vmware
+  - chromium
+  - torbrowser
+  - bitwarden
+  - piavpn-bin
+  - authy
+  - openrazer-daemon-git
+  - openrazer-driver-dkms
+  - razercommander
+  - system-config-printer
+  - cups
+  - bleachbit
+  - hwinfo
+  - hplip
+  - inxi
+  - 
+
+bb_host_productivity:
+  - onlyoffice
+  - audacity
+  - libreoffice
+  - calibre
+  - thunderbird
+  - mailspring
+  - blender
+  - inkscape
+  - gimp
+  - freecad
+  - curaa
+  - keybase
+
+bb_host_entertainment:
+  - steam
+  - shotwell
+  - obs-studio
+  - obs-v4l2sink-git
+  - youtube-music-bin
+  - emby-threater
+  - discord
+  - game-devices-udev
+  - guvcview

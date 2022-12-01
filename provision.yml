@@ -5,28 +5,38 @@
     - name: Update all packages
       import_tasks: tasks/arch_update.yml
       tags:
+        - local
         - update
 
     - name: Reboot in case of Kernel update
       import_tasks: tasks/reboot.yml
       tags:
+        - local
         - reboot
 
     - name: Arch base configuration
       include_role:
         name: bf_arch_base
+      tags:
+        - local
 
     - name: Desktop Environment (VM)
       include_role:
         name: bf_arch_desktop
+      tags:
+        - local
 
     - name: Configure CLI testing stuff
       include_role:
         name: bf_arch_testing_headless
+      tags:
+        - local
 
     - name: Configure graphical testing stuff
       include_role:
         name: bf_arch_testing_desktop
+      tags:
+        - local
 
 - hosts: VPS
   become: yes
@@ -34,17 +44,23 @@
     - name: Update all packages
       import_tasks: tasks/arch_update.yml
       tags:
+        - remote
         - update
 
     - name: Reboot in case of Kernel update
       import_tasks: tasks/reboot.yml
       tags:
+        - remote
         - reboot
 
     - name: Arch base configuration
       include_role:
         name: bf_arch_base
+      tags:
+        - remote
 
     - name: Configure CLI testing stuff
       include_role:
         name: bf_arch_testing_headless
+      tags:
+        - remote

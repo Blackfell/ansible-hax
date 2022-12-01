@@ -26,8 +26,17 @@
   tags:
     - i3
 
-- name: Bootstrap dunst theming - mkdir
+- name: Bootstrap dunst theming - mkdir for cache
   command: mkdir -p /home/{{ item.value.name}}/.cache/wal/
+  become_user: "{{ item.value.name}}"
+  become: yes
+  with_dict: "{{ bbvps_users }}"
+  tags:
+    - i3
+    - dunst
+
+- name: Bootstrap dunst theming - mkdir for config
+  command: mkdir -p /home/{{ item.value.name}}/.config/dunst/
   become_user: "{{ item.value.name}}"
   become: yes
   with_dict: "{{ bbvps_users }}"

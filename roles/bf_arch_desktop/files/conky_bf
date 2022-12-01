@@ -44,6 +44,6 @@ ${voffset 10}${color2}${alignr}${execi 1200 whoami}@${nodename}
 ${alignr}${color2}${font Meslo LG S DZ For Powerline:bold:size=8}uptime: ${color}${uptime_short}
 ${voffset 5}${color2}${font Meslo LG S DZ For Powerline:bold:size=8}${alignr}kernel: ${color}${kernel}
 #
-${goto 40}${voffset 15}${color2}${font Meslo LG S DZ For Powerline:bold:size=8}VPN Down : ${alignr}${color}${downspeedf tun0} MB/s
-${goto 40}${color2}${font MEslo LG S DZ For Powerline:bold:size=8}VPN Up : ${alignr}${color}${upspeedf tun0} MB/s
+${goto 40}${voffset 15}${color2}${font Meslo LG S DZ For Powerline:bold:size=8}VPN Down : ${alignr}${color}${downspeedf wgpia0} MB/s
+${goto 40}${color2}${font MEslo LG S DZ For Powerline:bold:size=8}VPN Up : ${alignr}${color}${upspeedf wgpia0} MB/s
 ]]

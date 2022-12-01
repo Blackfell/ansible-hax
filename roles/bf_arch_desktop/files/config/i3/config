@@ -377,7 +377,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id sleep 1; nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
 # exec --no-startup-id xfce4-power-manager # Doesn't work in VMWARE
-exec --no-startup-id clipit
+#exec --no-startup-id clipit
 exec --no-startup-id start_conky_bf
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
@@ -388,7 +388,7 @@ exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id killall opensnitch-ui; opensnitch-ui
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id killall syncthing ; syncthing
-exec_always --no-startup-id killall clipit ; clipit
+#exec_always --no-startup-id killall clipit ; clipit # Only enabled on Host machines now
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 #Configure X and Nvidia
