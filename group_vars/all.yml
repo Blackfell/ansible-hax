@@ -110,7 +110,7 @@ core_tools:
     - vim-airline
     - vim-airline-themes
     - p7zip
-    - apparmour
+    - apparmor
     - rtorrent
     - bzip2
     - intel-ucode
