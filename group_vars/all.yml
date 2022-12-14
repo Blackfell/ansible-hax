@@ -130,7 +130,7 @@ core_networking:
     - iw
     - openvpn
     - samba
-    - traceroutea
+    - traceroute
     - cifs-utils
     - exfat-utils
 core_aur:
