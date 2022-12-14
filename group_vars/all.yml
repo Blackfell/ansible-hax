@@ -366,6 +366,8 @@ bb_git:
     repo: "https://github.com/GhostPack/Seatbelt"
   - name: "windows CVEs 1"
     repo: "https://github.com/SecWiki/windows-kernel-exploits"
+  - name: "Linux router"
+    repo: "https://github.com/garywill/linux-router"
 
 #TODO these?
 #  - seatbelt
@@ -416,6 +418,7 @@ bb_gui_pentest:
 bb_gui_pentest_aur:
   - rappel-git
   - saleae-logic2
+  - rtl88xxau-aircrack-dkms
 
 #TODO - Add more tooling
 # Pro tooling
@@ -433,9 +436,13 @@ bb_ot:
   - perl
   - gem
   - arduino
+  - minicom
 
 
 bb_ot_aur:
+  - scantool
+  - can-utils
+  - gr-lora_sdr-git
 
 # Tools from Git  - Name and repo required.
 bb_ot_git:
@@ -452,6 +459,13 @@ bb_ot_git:
   - name: "nrich"
     repo: "https://gitlab.com/shodan-public/nrich"
     install_command: "cargo install --root /opt/cargo --path ."
+  - name: "Mintynet Aruino CAN stuff"
+    repo: "https://github.com/mintynet/nano-can"
+  - name: "LoRaCrack"
+    repo: "https://github.com/applied-risk/Loracrack"
+    install_command: "make"
+  - name: "LoRaCraft"
+    repo: "https://github.com/PentHertz/lora_craft"
 
 
 
@@ -465,20 +479,12 @@ bb_host_core:
   - chromium
   - torbrowser
   - bitwarden
-  - piavpn-bin
-  - authy
-  - openrazer-daemon-git
-  - openrazer-driver-dkms
-  - razercommander
   - system-config-printer
   - cups
   - bleachbit
   - hwinfo
   - hplip
   - inxi
-  - 
-
-bb_host_productivity:
   - onlyoffice
   - audacity
   - libreoffice
@@ -489,10 +495,7 @@ bb_host_productivity:
   - inkscape
   - gimp
   - freecad
-  - curaa
   - keybase
-
-bb_host_entertainment:
   - steam
   - shotwell
   - obs-studio
@@ -502,3 +505,13 @@ bb_host_entertainment:
   - discord
   - game-devices-udev
   - guvcview
+
+bb_host_aur:
+  - protonvpn-gui
+  - piavpn-bin
+  - authy
+  - openrazer-daemon-git
+  - openrazer-driver-dkms
+  - razercommander
+  - cura-modern-appimage
+  - chitubox-free-bin
