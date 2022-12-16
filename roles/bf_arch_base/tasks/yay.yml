@@ -4,7 +4,7 @@
     path: /opt/yay
     state: directory
     mode: '0755'
-    owner: root
+    owner: "{{bbvps_users.ansible_user.name}}"
     group: "{{bbvps_users.ansible_user.group}}"
   become: true
 
