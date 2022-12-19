@@ -184,7 +184,6 @@ bb_gui_core:
   - thunar
   - jython
 bb_gui_tools:
-  - atom
   - firefox
   - lynx
   - flameshot
