@@ -300,7 +300,7 @@ bb_exploit:
   - blackarch/metasploit
   - blackarch/empire
   - gdb
-  - blackarch/gef
+  - gef
   - blackarch/pwndbg
   - blackarch/thc-ipv6
   - blackarch/smbexec
@@ -379,7 +379,6 @@ bb_git:
 # wget http://www.willhackforsushi.com/sec660/snmpblow.pl
 bb_rust:
   - feroxbuster
-  - nrich
 bb_go_get:
   - github.com/tomnomnom/gron
   - github.com/tomnomnom/httprobe
@@ -436,6 +435,7 @@ bb_ot:
   - gem
   - arduino
   - minicom
+  - stlink
 
 
 bb_ot_aur:
