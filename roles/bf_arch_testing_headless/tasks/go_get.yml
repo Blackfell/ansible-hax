@@ -3,7 +3,7 @@
 
 - name: Custom tool installation commands
   shell:
-    cmd: go get -u {{ item }}
+    cmd: go install {{ item }}
   with_items: "{{ bb_go_get }}"
   become: yes
   become_user: "{{ bbvps_users.main_user.name }}"

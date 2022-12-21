@@ -254,7 +254,9 @@ current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
 bb_recon:
   - dnsrecon
   - blackarch/recon-ng
-  - subfinder
+  - subfinde
+  - sublist3r
+  - dnssearch
   - dnsx
   - nmap
   - masscan
@@ -380,9 +382,10 @@ bb_git:
 bb_rust:
   - feroxbuster
 bb_go_get:
-  - github.com/tomnomnom/gron
-  - github.com/tomnomnom/httprobe
-  - github.com/tomnomnom/gf
+  - github.com/tomnomnom/gron@latest
+  - github.com/tomnomnom/httprobe@latest
+  - github.com/tomnomnom/gf@latest
+  - github.com/hakluke/hakrevdns@latest
 
 ###############################
 ####       GUI   Testing Packages            ####
@@ -436,12 +439,15 @@ bb_ot:
   - arduino
   - minicom
   - stlink
+  - protobuf
+  - python-poetry
 
 
 bb_ot_aur:
   - scantool
   - can-utils
   - gr-lora_sdr-git
+  - platformio
 
 # Tools from Git  - Name and repo required.
 bb_ot_git:
@@ -465,6 +471,10 @@ bb_ot_git:
     install_command: "make"
   - name: "LoRaCraft"
     repo: "https://github.com/PentHertz/lora_craft"
+  - name: "RFQuack"
+    repo: "https://github.com/rfquack/RFQuack"
+    install_command: "python -m venv venv && source venv/bin/activate && poetry install"
+
 
 
 
@@ -504,6 +514,11 @@ bb_host_core:
   - discord
   - game-devices-udev
   - guvcview
+  - thermald
+  - i7z
+  - turbostat
+  - cpupower
+  - power-profiles-daemon
 
 bb_host_aur:
   - protonvpn-gui
@@ -514,3 +529,14 @@ bb_host_aur:
   - razercommander
   - cura-modern-appimage
   - chitubox-free-bin
+  - cpupower_gui
+  - auto-cpufreq
+  #- laptop-mode-tools
+  - tlp
+
+bb_host_services:
+  - thermald
+  - cpupowera
+  - auto-cpufreq
+  - power-profiles-daemon
+  - tlp
