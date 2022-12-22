@@ -254,7 +254,7 @@ current_blackarch_sha1sum: d062038042c5f141755ea39dbd615e6ff9e23121
 bb_recon:
   - dnsrecon
   - blackarch/recon-ng
-  - subfinde
+  - subfinder
   - sublist3r
   - dnssearch
   - dnsx
@@ -296,6 +296,7 @@ bb_vuln:
   - blackarch/pwntools
   - blackarch/smbmap
   - blackarch/sslscan
+  - blackarch/sslyze
 bb_exploit:
   - blackarch/sqlmap
   - afl
@@ -438,7 +439,6 @@ bb_gui_pentest_aur:
 ###############################
 
 bb_ot:
-  - git
   - perl
   - gem
   - arduino
@@ -446,7 +446,6 @@ bb_ot:
   - stlink
   - protobuf
   - python-poetry
-
 
 bb_ot_aur:
   - scantool
