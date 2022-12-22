@@ -372,9 +372,10 @@ bb_git:
     repo: "https://github.com/SecWiki/windows-kernel-exploits"
   - name: "Linux router"
     repo: "https://github.com/garywill/linux-router"
-  - name: "VHostScan"
-    repo: "https://github.com/codingo/vhostscan"
-    install_command: "python3 setup.py install"
+      # Build doesn't really work for this reliably
+      #- name: "VHostScan"
+      # repo: "https://github.com/codingo/vhostscan"
+      #install_command: "python3 setup.py install"
 
 #TODO these?
 #  - seatbelt
