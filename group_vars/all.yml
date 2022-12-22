@@ -295,6 +295,7 @@ bb_vuln:
   - net-snmp
   - blackarch/pwntools
   - blackarch/smbmap
+  - blackarch/sslscan
 bb_exploit:
   - blackarch/sqlmap
   - afl
