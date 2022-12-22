@@ -258,6 +258,7 @@ bb_recon:
   - sublist3r
   - dnssearch
   - dnsx
+  - prips
   - nmap
   - masscan
   - hping
@@ -369,6 +370,9 @@ bb_git:
     repo: "https://github.com/SecWiki/windows-kernel-exploits"
   - name: "Linux router"
     repo: "https://github.com/garywill/linux-router"
+  - name: "VHostScan"
+    repo: "https://github.com/codingo/vhostscan"
+    install_command: "python3 setup.py install"
 
 #TODO these?
 #  - seatbelt
