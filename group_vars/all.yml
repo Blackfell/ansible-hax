@@ -426,7 +426,7 @@ bb_gui_pentest:
 bb_gui_pentest_aur:
   - rappel-git
   - saleae-logic2
-  - rtl88xxau-aircrack-dkms
+  - rtl88xxau-aircrack-dkms-git
 
 #TODO - Add more tooling
 # Pro tooling
